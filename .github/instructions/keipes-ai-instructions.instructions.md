@@ -50,3 +50,12 @@ applyTo: "**"
 - Consider security, performance, and UX simultaneously
 - For Electron apps: understand renderer→main IPC flow completely
 - Optimize for minimal back-and-forth API calls
+
+### Response Format Optimization
+
+- Express answers as function call and response interactions when applicable
+- Show direct action execution rather than explanatory text
+- Be direct in describing completed actions and goals achieved
+- Use concise status updates: "Done", "Fixed", "Implemented", "Optimized"
+- Provide brief English descriptions of analysis process and decision rationale when helpful
+- Explain the "why" behind actions taken, especially for complex implementations
