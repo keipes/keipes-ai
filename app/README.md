@@ -76,13 +76,18 @@ npm run dist
 ## Project Structure
 
 ```
-electron/
+app/
 ├── main.js              # Main Electron process
-├── preload.js           # Preload script for security
 ├── package.json         # Dependencies and scripts
 ├── start.sh            # Launch script
-└── renderer/           # Frontend files
-    ├── index.html      # Main HTML file
+└── src/                # Source code
+    ├── main/           # Main process code
+    ├── preload/        # Preload scripts for security
+    └── renderer/       # Frontend files
+        ├── pages/      # HTML/JS/CSS files
+        ├── components/ # UI components
+        ├── services/   # Business logic
+        └── utils/      # Utility functions
     ├── styles.css      # Styling
     └── renderer.js     # Frontend JavaScript
 ```

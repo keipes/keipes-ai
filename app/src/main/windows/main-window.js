@@ -14,7 +14,7 @@ function createMainWindow() {
       nodeIntegration: false,
       contextIsolation: true,
       enableRemoteModule: false,
-      preload: path.join(__dirname, "../../../preload.js"),
+      preload: path.join(__dirname, "../../preload/api.js"),
     },
     titleBarStyle: process.platform === "darwin" ? "hiddenInset" : "default",
     show: false, // Don't show until ready

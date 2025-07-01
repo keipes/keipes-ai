@@ -23,11 +23,11 @@ keipes-ai/
 ├── ⚡ Electron Frontend
 │   └── ui/electron/
 │       ├── main.js           # Electron main process
-│       ├── preload.js        # Security bridge
-│       ├── package.json      # Node dependencies
-│       └── renderer/         # UI files
-│           ├── index.html
-│           ├── styles.css
+│       ├── src/              # Source code
+│       │   ├── main/         # Main process
+│       │   ├── preload/      # Security bridge
+│       │   └── renderer/     # UI code
+│       └── package.json      # Node dependencies
 │           └── renderer.js
 └── 🚀 Launchers
     ├── start_full_app.sh     # Start everything

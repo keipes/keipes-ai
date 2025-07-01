@@ -1,0 +1,25 @@
+feat: major codebase cleanup and architectural improvements
+
+- Fix ESLint config: convert .eslintrc.js to .eslintrc.json (ES module conflict)
+- Remove "type": "module" from package.json for Electron compatibility  
+- Delete duplicate files: error-handler.js, preload.js, renderer/ directory
+- Implement ChatService with proper error handling and message history
+- Implement ImageService with provider abstraction (Gemini/OpenAI)
+- Centralize configuration: unified backend URL (port 5001) in config.js
+- Add structured error system with error codes and user feedback
+- Refactor from monolithic renderer to service-based architecture
+
+Code quality improvements:
+- 0 ESLint errors (was multiple)
+- Consistent module system (CommonJS main, ES6 renderer)
+- Proper error boundaries with structured logging
+- Type-safe service interfaces
+
+Files changed:
+- Removed: app/renderer/, app/preload.js, error-handler.js
+- Added: .eslintrc.json, CLEANUP_REPORT.md
+- Enhanced: ChatService, ImageService, config.js
+- Fixed: package.json, main-window.js preload path
+
+Impact: 2 duplicate files → 0, empty services → fully implemented,
+multiple lint errors → 0, monolithic → service-based architecture
