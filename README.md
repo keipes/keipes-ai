@@ -1,232 +1,148 @@
-# Keipes AI - Full Stack Desktop Application
+# Keipes AI Electron App
 
-A complete AI-powered desktop application with Python backend and Electron frontend, integrating Google Gemini and OpenAI services.
+A modern desktop application for AI interactions, built with Electron.
 
-## 🚀 Features
+## Features
 
-- **Desktop UI**: Modern Electron-based interface
-- **AI Chat**: Powered by Google Gemini
-- **Image Generation**: Support for both Gemini and OpenAI DALL-E
-- **Cross-Platform**: macOS, Windows, Linux support
-- **Real-time Integration**: Live connection between frontend and backend
+- **Chat Interface**: Interactive chat with AI models
+- **Image Generation**: Generate images using Gemini AI
+- **Settings Management**: Configure API keys and preferences
+- **Cross-platform**: Runs on macOS, Windows, and Linux
+- **Modern UI**: Beautiful dark theme with responsive design
 
-## 📁 Project Structure
+## Getting Started
 
-```
-keipes-ai/
-├── 🐍 Python Backend
-│   ├── backend_server.py      # Flask API server
-│   ├── requirements.txt       # Python dependencies
-│   ├── start_backend.sh      # Backend launcher
-│   └── gemini/               # Original Gemini scripts
-│       └── main.py
-├── ⚡ Electron Frontend
-│   └── ui/electron/
-│       ├── main.js           # Electron main process
-│       ├── src/              # Source code
-│       │   ├── main/         # Main process
-│       │   ├── preload/      # Security bridge
-│       │   └── renderer/     # UI code
-│       └── package.json      # Node dependencies
-│           └── renderer.js
-└── 🚀 Launchers
-    ├── start_full_app.sh     # Start everything
-    └── start_backend.sh      # Backend only
-```
+### Prerequisites
 
-## 🛠️ Quick Start
+- Node.js (v16 or higher)
+- npm or yarn
 
-### Option 1: Start Everything at Once
+### Installation
 
-```bash
-./start_full_app.sh
-```
+1. Navigate to the electron directory:
 
-### Option 2: Start Components Separately
+   ```bash
+   cd ui/electron
+   ```
 
-**1. Start Backend Server:**
+2. Install dependencies:
 
-```bash
-./start_backend.sh
-```
+   ```bash
+   npm install
+   ```
 
-**2. Start Electron App (in another terminal):**
+3. Start the application:
+
+   ```bash
+   npm start
+   ```
+
+   Or use the convenience script:
+
+   ```bash
+   ./start.sh
+   ```
+
+### Development
+
+To run in development mode with DevTools:
 
 ```bash
-cd ui/electron
-npm install  # First time only
 npm run dev
 ```
 
-## 📋 Prerequisites
+### Building
 
-- **Python 3.8+** (with pip)
-- **Node.js 16+** (with npm)
-- **API Keys**:
-  - Google Gemini API key (included)
-  - OpenAI API key (optional, for DALL-E)
-
-## 🔧 Setup Instructions
-
-### 1. Clone and Navigate
+To build the application for distribution:
 
 ```bash
-cd /path/to/keipes-ai
+npm run build
 ```
 
-### 2. Backend Setup
+To create platform-specific packages:
 
 ```bash
-# Create virtual environment
-python3 -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-
-# Install Python dependencies
-pip install -r requirements.txt
+npm run dist
 ```
 
-### 3. Frontend Setup
+## Configuration
 
-```bash
-cd ui/electron
-npm install
-```
+1. Open the Settings tab in the application
+2. Enter your API keys:
+   - Gemini API Key (for image generation and chat)
+   - OpenAI API Key (optional, for additional features)
+3. Click "Save Settings"
 
-### 4. Configuration
-
-1. Launch the Electron app
-2. Go to Settings tab
-3. Enter your API keys:
-   - Gemini API key (pre-configured)
-   - OpenAI API key (for DALL-E features)
-4. Select your preferred image generation provider
-5. Click "Save Settings"
-
-## 🖥️ Usage
-
-### Chat Interface
-
-- Type messages in the chat input
-- AI responses powered by Google Gemini
-- Real-time conversation history
-
-### Image Generation
-
-- Switch to "Image Generation" tab
-- Enter descriptive prompt
-- Choose provider (Gemini or OpenAI)
-- Click "Generate Image"
-- Download generated images
-
-### Settings
-
-- Configure API keys
-- Select image generation provider
-- Toggle preferences
-
-## 🔌 API Endpoints
-
-The Python backend exposes these REST APIs:
-
-- `GET /health` - Server health check
-- `POST /api/chat` - Chat with Gemini
-- `POST /api/generate-image/gemini` - Generate image with Gemini
-- `POST /api/generate-image/openai` - Generate image with OpenAI
-- `POST /api/config` - Update configuration
-- `GET /api/providers` - Get available providers
-
-## 🛠️ Development
-
-### Backend Development
-
-```bash
-# Start backend in development mode
-python backend_server.py
-```
-
-### Frontend Development
-
-```bash
-cd ui/electron
-npm run dev  # Starts with DevTools
-```
-
-### Building for Distribution
-
-```bash
-cd ui/electron
-npm run build    # Build app
-npm run dist     # Create installer
-```
-
-## 🔒 Security Features
-
-- Electron context isolation enabled
-- No node integration in renderer
-- API keys stored locally only
-- CORS protection on backend
-
-## 📊 System Architecture
+## Project Structure
 
 ```
-┌─────────────────┐    HTTP/REST    ┌──────────────────┐
-│   Electron UI   │ ◄──────────────► │  Python Backend  │
-│                 │                  │                  │
-│ • Chat          │                  │ • Flask Server   │
-│ • Image Gen     │                  │ • Gemini Client  │
-│ • Settings      │                  │ • OpenAI Client  │
-└─────────────────┘                  └──────────────────┘
-                                               │
-                                               ▼
-                                     ┌──────────────────┐
-                                     │   AI Services    │
-                                     │                  │
-                                     │ • Google Gemini  │
-                                     │ • OpenAI DALL-E  │
-                                     └──────────────────┘
+app/
+├── main.js              # Main Electron process
+├── package.json         # Dependencies and scripts
+├── start.sh            # Launch script
+└── src/                # Source code
+    ├── main/           # Main process code
+    ├── preload/        # Preload scripts for security
+    └── renderer/       # Frontend files
+        ├── pages/      # HTML/JS/CSS files
+        ├── components/ # UI components
+        ├── services/   # Business logic
+        └── utils/      # Utility functions
+    ├── styles.css      # Styling
+    └── renderer.js     # Frontend JavaScript
 ```
 
-## 🐛 Troubleshooting
+## Integration with Python Backend
 
-### Backend Issues
+The Electron app is designed to work with your existing Python AI scripts. To integrate:
 
-- **Server won't start**: Check Python dependencies with `pip list`
-- **API errors**: Verify API keys in settings
-- **Port conflicts**: Backend uses port 5000
+1. Create a Python Flask/FastAPI server that exposes your AI functionality
+2. Update the `generateImageWithGemini()` and `chatWithAI()` functions in `renderer.js`
+3. Make HTTP requests to your Python backend
 
-### Frontend Issues
+Example Python Flask integration:
 
-- **App won't launch**: Check Node.js version (`node --version`)
-- **Backend connection failed**: Ensure backend server is running
-- **Image generation fails**: Check API key configuration
+```python
+from flask import Flask, request, jsonify
+from flask_cors import CORS
 
-### Common Solutions
+app = Flask(__name__)
+CORS(app)
 
-```bash
-# Reset Python environment
-rm -rf venv
-python3 -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
+@app.route('/generate-image', methods=['POST'])
+def generate_image():
+    data = request.json
+    prompt = data['prompt']
+    # Your existing image generation code here
+    # Return the image URL or base64 data
+    return jsonify({'imageUrl': 'path/to/image.png'})
 
-# Reset Node modules
-cd ui/electron
-rm -rf node_modules package-lock.json
-npm install
+@app.route('/chat', methods=['POST'])
+def chat():
+    data = request.json
+    message = data['message']
+    # Your existing chat code here
+    response = "AI response here"
+    return jsonify({'response': response})
+
+if __name__ == '__main__':
+    app.run(debug=True, port=5000)
 ```
 
-## 📝 License
+## Available Scripts
 
-MIT License - see original project for details.
+- `npm start` - Start the application
+- `npm run dev` - Start in development mode with DevTools
+- `npm run build` - Build the application
+- `npm run dist` - Create distribution packages
+- `npm run pack` - Package without creating installers
 
-## 🤝 Contributing
+## Platform Support
 
-1. Fork the repository
-2. Create feature branch
-3. Make changes
-4. Test with both backend and frontend
-5. Submit pull request
+- **macOS**: Builds .app and .dmg files
+- **Windows**: Builds .exe installer
+- **Linux**: Builds AppImage
 
----
+## License
 
-**Happy coding! 🎉**
+MIT License

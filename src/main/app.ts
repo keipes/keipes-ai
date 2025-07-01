@@ -2,7 +2,7 @@ import { app, BrowserWindow } from "electron";
 import { createMainWindow } from "./windows/main-window";
 import { createApplicationMenu } from "./menu/application-menu";
 import { setupIpcHandlers } from "./services/ipc-service";
-import * as logger from "./services/logger";
+import logger = require("./services/logger");
 
 // App event listeners
 app.whenReady().then(() => {

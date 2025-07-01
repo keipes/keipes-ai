@@ -2,7 +2,7 @@
   "name": "keipes-ai-electron",
   "version": "1.0.0",
   "description": "Keipes AI Electron Application",
-  "main": "dist/main.js",
+  "main": "dist/main/app.js",
   "scripts": {
     "start": "electron .",
     "dev": "npm run build:main && npm run start -- --dev",
@@ -11,7 +11,8 @@
     "build:main:watch": "tsc --watch",
     "renderer:dev": "vite --config vite.config.mjs",
     "renderer:build": "vite build --config vite.config.mjs",
-    "build": "npm run build:main && npm run renderer:build && electron-builder",
+    "build:app": "npm run build:main && npm run renderer:build",
+    "build": "npm run build:app && electron-builder",
     "lint": "eslint . --ext .js,.ts,.tsx",
     "lint:fix": "eslint . --ext .js,.ts,.tsx --fix",
     "type-check": "tsc --noEmit",
