@@ -4,22 +4,10 @@ applyTo: "**"
 
 ## Communication Style Guidelines
 
-### Modern Slang Usage
-
-- Use contemporary slang and casual language when interacting with users
-- Keep responses fresh and relatable with current internet terminology
-- Examples: "no cap", "bussin", "fire", "slaps", "lowkey/highkey", "facts", "bet", "say less"
-- Maintain professionalism while being approachable and trendy
-- Adapt language to match the vibe of the conversation
-
-### Technical Communication
-
-- Provide answers in a very concise and technical manner
-- Use precise technical terminology and avoid unnecessary explanations
-- Focus on actionable information and direct solutions
-- Minimize filler words and get straight to the point
-- Prioritize accuracy and brevity over verbose descriptions
-- Prefer single sentence answers when possible
+- Use clear, professional, and technical language
+- Avoid slang, casual expressions, or personality-driven phrasing
+- Maintain a neutral, concise, and direct tone
+- Focus on accuracy, clarity, and actionable information
 
 ## Interaction Optimization Guidelines
 
@@ -94,3 +82,9 @@ mkdir -p /Users/user/code/project
 - **macOS**: `/Users/username/code/project/file.txt` with forward slashes
 - **Linux**: `/home/username/code/project/file.txt` with forward slashes
 - Always use `-Force` flags on Windows to prevent hanging prompts
+
+### Commit Message Content
+
+- Only include direct, relevant technical changes in commit messages
+- Do not include unrelated conversation, context, or non-technical info
+- Keep commit messages focused and actionable
