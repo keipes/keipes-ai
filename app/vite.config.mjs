@@ -18,4 +18,7 @@ export default defineConfig({
       "@": path.resolve("./src/renderer"),
     },
   },
+  esbuild: {
+    jsxInject: `import React from 'react'`,
+  },
 });

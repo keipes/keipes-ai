@@ -2,15 +2,20 @@
   "name": "keipes-ai-electron",
   "version": "1.0.0",
   "description": "Keipes AI Electron Application",
-  "main": "main.js",
+  "main": "dist/main.js",
   "scripts": {
     "start": "electron .",
-    "dev:all": "npm run renderer:dev & npm start -- --dev",
+    "dev": "npm run build:main && npm run start -- --dev",
+    "dev:all": "npm run renderer:dev & npm run dev",
+    "build:main": "tsc",
+    "build:main:watch": "tsc --watch",
     "renderer:dev": "vite --config vite.config.mjs",
     "renderer:build": "vite build --config vite.config.mjs",
-    "build": "vite build --config vite.config.mjs && electron-builder",
-    "lint": "eslint . --ext .js",
-    "lint:fix": "eslint . --ext .js --fix"
+    "build": "npm run build:main && npm run renderer:build && electron-builder",
+    "lint": "eslint . --ext .js,.ts,.tsx",
+    "lint:fix": "eslint . --ext .js,.ts,.tsx --fix",
+    "type-check": "tsc --noEmit",
+    "type-check:renderer": "tsc --noEmit -p tsconfig.renderer.json"
   },
   "keywords": [
     "electron",
@@ -21,6 +26,10 @@
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^24.0.8",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@typescript-eslint/eslint-plugin": "^6.21.0",
+    "@typescript-eslint/parser": "^6.21.0",
     "electron": "^30.0.0",
     "electron-builder": "^25.0.0",
     "eslint": "^8.56.0",
@@ -40,8 +49,8 @@
       "output": "dist"
     },
     "files": [
-      "main.js",
-      "src/",
+      "dist/",
+      "src/renderer/",
       "package.json"
     ],
     "mac": {
