@@ -23,6 +23,13 @@ node .github/scripts/smart-publish.js
 # 4. Handles errors gracefully
 ```
 
+**When user says "commit":** Only commit, do not push
+
+```bash
+# Commit-only command:
+git add . && git commit -m "feat: automated commit"
+```
+
 ## Smart Publish Features
 
 - **Auto-staging**: Adds all uncommitted changes
