@@ -12,7 +12,6 @@ const statusText = document.getElementById("statusText");
 const appVersion = document.getElementById("appVersion");
 
 // Application State
-let currentView = "chat";
 let isGenerating = false;
 
 // Initialize the application
@@ -88,7 +87,8 @@ function switchView(viewName) {
     view.classList.toggle("active", view.id === `${viewName}View`);
   });
 
-  currentView = viewName;
+  // Store active view in local storage instead of a variable
+  localStorage.setItem('activeView', viewName);
   updateStatus(`Switched to ${viewName}`);
 }
 
@@ -405,7 +405,7 @@ async function checkBackendStatus() {
     if (response.ok) {
       const data = await response.json();
       updateStatus("Backend connected");
-      console.log("Backend status:", data);
+      updateStatus(`Backend status: ${JSON.stringify(data)}`);
     } else {
       updateStatus("Backend connection failed");
     }
@@ -415,6 +415,8 @@ async function checkBackendStatus() {
   }
 }
 
+// This function is preserved for future use
+/*
 async function getAvailableProviders() {
   try {
     const response = await fetch(`${BACKEND_URL}/api/providers`);
@@ -427,3 +429,4 @@ async function getAvailableProviders() {
     return [];
   }
 }
+*/

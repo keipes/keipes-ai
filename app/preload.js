@@ -20,4 +20,18 @@ contextBridge.exposeInMainWorld("electronAPI", {
 
   // Remove listeners
   removeAllListeners: (channel) => ipcRenderer.removeAllListeners(channel),
+  
+  // Error logging
+  logError: (errorInfo) => ipcRenderer.invoke("log-error", errorInfo),
+  
+  // Connection status
+  onDisconnect: (callback) => {
+    window.addEventListener("offline", callback);
+    return () => window.removeEventListener("offline", callback);
+  },
+  
+  onReconnect: (callback) => {
+    window.addEventListener("online", callback);
+    return () => window.removeEventListener("online", callback);
+  }
 });
