@@ -17,7 +17,7 @@ function setupIpcHandlers() {
     try {
       const mainWindow = getMainWindow();
       if (!mainWindow) return null;
-      
+
       const result = await dialog.showMessageBox(mainWindow, options);
       return result;
     } catch (error) {
@@ -33,7 +33,7 @@ function setupIpcHandlers() {
       console.error("Error showing error box:", error);
     }
   });
-  
+
   // Centralized error handler
   ipcMain.handle("log-error", (event, errorInfo) => {
     console.error("Renderer Error:", errorInfo);
@@ -42,5 +42,5 @@ function setupIpcHandlers() {
 }
 
 module.exports = {
-  setupIpcHandlers
+  setupIpcHandlers,
 };

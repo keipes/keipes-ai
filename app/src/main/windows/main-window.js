@@ -55,5 +55,5 @@ function closeAllWindows() {
 module.exports = {
   createMainWindow,
   getMainWindow,
-  closeAllWindows
+  closeAllWindows,
 };

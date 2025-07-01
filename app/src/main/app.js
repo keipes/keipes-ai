@@ -7,12 +7,12 @@ const logger = require("./services/logger");
 // App event listeners
 app.whenReady().then(() => {
   logger.info(`Starting application v${app.getVersion()}`);
-  
+
   try {
     createMainWindow();
     createApplicationMenu();
     setupIpcHandlers();
-    
+
     logger.info("Application started successfully");
   } catch (error) {
     logger.error("Failed to initialize application", error);

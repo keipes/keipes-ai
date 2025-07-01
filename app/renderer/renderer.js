@@ -88,7 +88,7 @@ function switchView(viewName) {
   });
 
   // Store active view in local storage instead of a variable
-  localStorage.setItem('activeView', viewName);
+  localStorage.setItem("activeView", viewName);
   updateStatus(`Switched to ${viewName}`);
 }
 

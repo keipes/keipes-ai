@@ -8,12 +8,14 @@ const errorHandler = {
    */
   init() {
     window.onerror = (message, source, lineno, colno, error) => {
-      this.handleError(error || {
-        message,
-        source,
-        lineno,
-        colno,
-      });
+      this.handleError(
+        error || {
+          message,
+          source,
+          lineno,
+          colno,
+        }
+      );
     };
 
     window.onunhandledrejection = (event) => {
@@ -27,14 +29,14 @@ const errorHandler = {
    */
   handleError(error) {
     console.error("Application error:", error);
-    
+
     // Log to main process
     window.electronAPI.logError({
       message: error.message || String(error),
       stack: error.stack,
       timestamp: new Date().toISOString(),
     });
-    
+
     // Show to user if serious
     if (this.isSeriousError(error)) {
       window.electronAPI.showErrorBox(
@@ -52,14 +54,12 @@ const errorHandler = {
   isSeriousError(error) {
     // Customize logic for determining serious errors
     const message = String(error.message || error);
-    const notSerious = [
-      "network error",
-      "canceled",
-      "aborted",
-    ].some(term => message.toLowerCase().includes(term));
-    
+    const notSerious = ["network error", "canceled", "aborted"].some((term) =>
+      message.toLowerCase().includes(term)
+    );
+
     return !notSerious;
-  }
+  },
 };
 
 export default errorHandler;
