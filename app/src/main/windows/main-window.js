@@ -21,7 +21,15 @@ function createMainWindow() {
   });
 
   // Load the app
-  mainWindow.loadFile("src/renderer/pages/index.html");
+  if (process.argv.includes("--dev")) {
+    // Load from Vite dev server
+    mainWindow.loadURL("http://localhost:5173");
+  } else {
+    // Load built file
+    mainWindow.loadFile(
+      path.join(__dirname, "../../../dist/renderer/pages/index.html")
+    );
+  }
 
   // Show window when ready to prevent visual flash
   mainWindow.once("ready-to-show", () => {
