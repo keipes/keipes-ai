@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keipes AI</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-brain"></i>
+                    <h1>Keipes AI</h1>
+                </div>
+                <div class="header-actions">
+                    <button id="newBtn" class="btn btn-primary">
+                        <i class="fas fa-plus"></i> New
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <nav class="nav-menu">
+                    <button class="nav-item active" data-view="chat">
+                        <i class="fas fa-comments"></i>
+                        <span>Chat</span>
+                    </button>
+                    <button class="nav-item" data-view="image">
+                        <i class="fas fa-image"></i>
+                        <span>Image Generation</span>
+                    </button>
+                    <button class="nav-item" data-view="settings">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </button>
+                </nav>
+            </aside>
+
+            <!-- Content Area -->
+            <section class="content-area">
+                <!-- Chat View -->
+                <div id="chatView" class="view active">
+                    <div class="chat-container">
+                        <div class="chat-messages" id="chatMessages">
+                            <div class="welcome-message">
+                                <i class="fas fa-robot"></i>
+                                <h2>Welcome to Keipes AI</h2>
+                                <p>How can I help you today?</p>
+                            </div>
+                        </div>
+                        <div class="chat-input-container">
+                            <div class="input-wrapper">
+                                <input type="text" id="chatInput" placeholder="Type your message here..." />
+                                <button id="sendBtn" class="send-btn">
+                                    <i class="fas fa-paper-plane"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Image Generation View -->
+                <div id="imageView" class="view">
+                    <div class="image-container">
+                        <div class="image-input-section">
+                            <h2><i class="fas fa-palette"></i> Image Generation</h2>
+                            <div class="input-group">
+                                <label for="imagePrompt">Describe the image you want to generate:</label>
+                                <textarea id="imagePrompt" placeholder="A bald eagle with a cannon on its back. The sun setting over purple mountains..."></textarea>
+                            </div>
+                            <button id="generateBtn" class="btn btn-primary">
+                                <i class="fas fa-magic"></i> Generate Image
+                            </button>
+                        </div>
+                        <div class="image-output-section">
+                            <div id="imageOutput" class="image-output">
+                                <div class="placeholder">
+                                    <i class="fas fa-image"></i>
+                                    <p>Generated images will appear here</p>
+                                </div>
+                            </div>
+                            <div id="imageLoading" class="loading hidden">
+                                <i class="fas fa-spinner fa-spin"></i>
+                                <p>Generating image...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Settings View -->
+                <div id="settingsView" class="view">
+                    <div class="settings-container">
+                        <h2><i class="fas fa-cog"></i> Settings</h2>
+                        <div class="settings-section">
+                            <h3>API Configuration</h3>
+                            <div class="input-group">
+                                <label for="geminiApiKey">Gemini API Key:</label>
+                                <input type="password" id="geminiApiKey" placeholder="Enter your Gemini API key">
+                            </div>
+                            <div class="input-group">
+                                <label for="openaiApiKey">OpenAI API Key:</label>
+                                <input type="password" id="openaiApiKey" placeholder="Enter your OpenAI API key">
+                            </div>
+                            <div class="input-group">
+                                <label for="imageProvider">Image Generation Provider:</label>
+                                <select id="imageProvider">
+                                    <option value="gemini">Google Gemini (Free)</option>
+                                    <option value="openai">OpenAI DALL-E (Requires API Key)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="settings-section">
+                            <h3>Preferences</h3>
+                            <div class="checkbox-group">
+                                <label>
+                                    <input type="checkbox" id="darkMode" checked>
+                                    <span>Dark Mode</span>
+                                </label>
+                            </div>
+                            <div class="checkbox-group">
+                                <label>
+                                    <input type="checkbox" id="autoSave">
+                                    <span>Auto-save conversations</span>
+                                </label>
+                            </div>
+                        </div>
+                        <button id="saveSettings" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Save Settings
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Status Bar -->
+        <footer class="status-bar">
+            <div class="status-left">
+                <span id="statusText">Ready</span>
+            </div>
+            <div class="status-right">
+                <span id="appVersion">v1.0.0</span>
+            </div>
+        </footer>
+    </div>
+
+    <script src="renderer.js"></script>
+</body>
+</html>
