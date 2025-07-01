@@ -32,8 +32,8 @@
     },
     "files": [
       "main.js",
-      "preload.js",
-      "renderer/",
+      "src/",
+      "public/",
       "package.json"
     ],
     "mac": {

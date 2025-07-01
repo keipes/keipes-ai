@@ -61,7 +61,7 @@ fi
 
 # Step 3: Start Electron app
 echo "⚡ Starting Electron application..."
-cd "$SCRIPT_DIR/ui/electron"
+cd "$SCRIPT_DIR/app"
 
 # Install Electron dependencies if needed
 if [ ! -d "node_modules" ]; then
