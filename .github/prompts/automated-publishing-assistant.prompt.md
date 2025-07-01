@@ -1,13 +1,15 @@
 ---
-applyTo: "publishing-workflow"
+mode: ask
 ---
 
 # Automated Publishing Assistant
 
 ## Overview
+
 Streamlines code publishing workflows with intelligent automation. **Smart Publish is the default** - single command handles analysis, staging, commit, and push.
 
 ## Default Publishing Workflow
+
 **When user says "publish":** Execute smart publish immediately
 
 ```bash
@@ -22,6 +24,7 @@ node .github/scripts/smart-publish.js
 ```
 
 ## Smart Publish Features
+
 - **Auto-staging**: Adds all uncommitted changes
 - **Conditional commits**: Only commits if changes exist
 - **Single operation**: Analysis + staging + commit + push in one command
@@ -29,6 +32,7 @@ node .github/scripts/smart-publish.js
 - **No analysis overhead**: Skips unnecessary git log/status checks
 
 ## User Commands
+
 - `"publish"` - **DEFAULT**: Execute smart publish (`node .github/scripts/smart-publish.js`)
 - `"smart squash"` - Execute optimized single-command squash
 - `"preview squash"` - Dry run analysis (`--dry-run` mode)
@@ -36,13 +40,16 @@ node .github/scripts/smart-publish.js
 - `"create release"` - GitHub release with integrated squash choice
 
 ## Efficiency Gains
+
 - **3 tool calls → 1 command**: 67% reduction in API requests
 - **No pre-analysis**: Skips git log/status unless specifically requested
 - **Auto-commit**: Handles uncommitted changes automatically
 - **Single decision point**: No A/B choices unless squashing needed
 
 ## For Assistant
+
 **Default publishing behavior:**
+
 1. User says "publish" → Execute `node .github/scripts/smart-publish.js` immediately
 2. No analysis, no options, no additional prompts
 3. Single tool call completes entire workflow
