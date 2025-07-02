@@ -4,10 +4,10 @@
 		{
 			"label": "Run Keipes AI (Development)",
 			"type": "shell",
-			"command": "npm",
+			"command": "powershell",
 			"args": [
-				"run",
-				"dev:all"
+				"-Command",
+				"Write-Host 'Stopping existing Keipes AI processes...'; $processes = Get-WmiObject Win32_Process -ErrorAction SilentlyContinue | Where-Object { $_.CommandLine -like '*keipes-ai*' -or ($_.CommandLine -like '*vite*' -and $_.CommandLine -like '*5173*') -or ($_.CommandLine -like '*electron*' -and $_.CommandLine -like '*keipes-ai*') }; if ($processes) { $processes | ForEach-Object { Stop-Process -Id $_.ProcessId -Force -ErrorAction SilentlyContinue } }; Write-Host 'Checking for port 5173...'; $port5173 = netstat -ano | Select-String ':5173.*LISTENING'; if ($port5173) { $pid = ($port5173 -split '\\s+')[-1]; Stop-Process -Id $pid -Force -ErrorAction SilentlyContinue }; Start-Sleep -Seconds 2; Write-Host 'Starting Keipes AI...'; npm run dev:all"
 			],
 			"group": "build",
 			"isBackground": true,
@@ -15,6 +15,17 @@
 				"$tsc",
 				"$eslint-stylish"
 			]
+		},
+		{
+			"label": "Kill Dev Processes",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-Command",
+				"Write-Host 'Killing Keipes AI processes only...'; $processes = Get-WmiObject Win32_Process -ErrorAction SilentlyContinue | Where-Object { $_.CommandLine -like '*keipes-ai*' -or ($_.CommandLine -like '*vite*' -and $_.CommandLine -like '*5173*') -or ($_.CommandLine -like '*electron*' -and $_.CommandLine -like '*keipes-ai*') }; if ($processes) { $processes | ForEach-Object { Write-Host \"Stopping process $($_.ProcessId): $($_.Name)\"; Stop-Process -Id $_.ProcessId -Force -ErrorAction SilentlyContinue } } else { Write-Host 'No Keipes AI processes found.' }; $port5173 = netstat -ano | Select-String ':5173.*LISTENING'; if ($port5173) { $pid = ($port5173 -split '\\s+')[-1]; Write-Host \"Stopping process on port 5173: $pid\"; Stop-Process -Id $pid -Force -ErrorAction SilentlyContinue }; Write-Host 'Done.'"
+			],
+			"group": "build",
+			"problemMatcher": []
 		},
 		{
 			"label": "Build Main Process (Watch)",
