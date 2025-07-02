@@ -1,0 +1,41 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug Main Process",
+            "type": "node",
+            "request": "launch",
+            "program": "${workspaceFolder}/node_modules/.bin/electron",
+            "args": [
+                "${workspaceFolder}/dist/main/app.js",
+                "--dev"
+            ],
+            "env": {
+                "NODE_ENV": "development"
+            },
+            "preLaunchTask": "Build Main Process",
+            "console": "integratedTerminal",
+            "sourceMaps": true,
+            "outFiles": [
+                "${workspaceFolder}/dist/**/*.js"
+            ]
+        },
+        {
+            "name": "Debug Renderer Process",
+            "type": "chrome",
+            "request": "launch",
+            "url": "http://localhost:5173",
+            "webRoot": "${workspaceFolder}/src/renderer",
+            "sourceMaps": true
+        }
+    ],
+    "compounds": [
+        {
+            "name": "Debug Keipes AI",
+            "configurations": [
+                "Debug Main Process",
+                "Debug Renderer Process"
+            ]
+        }
+    ]
+}

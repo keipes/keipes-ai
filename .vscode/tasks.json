@@ -1,0 +1,80 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Run Keipes AI (Development)",
+			"type": "shell",
+			"command": "npm",
+			"args": [
+				"run",
+				"dev:all"
+			],
+			"group": "build",
+			"isBackground": true,
+			"problemMatcher": [
+				"$tsc",
+				"$eslint-stylish"
+			]
+		},
+		{
+			"label": "Build Main Process (Watch)",
+			"type": "shell",
+			"command": "npm",
+			"args": [
+				"run",
+				"build:main:watch"
+			],
+			"group": "build",
+			"isBackground": true,
+			"problemMatcher": ["$tsc"]
+		},
+		{
+			"label": "Start Renderer Dev Server",
+			"type": "shell",
+			"command": "npm",
+			"args": [
+				"run",
+				"renderer:dev"
+			],
+			"group": "build",
+			"isBackground": true,
+			"problemMatcher": []
+		},
+		{
+			"label": "Build Application",
+			"type": "shell",
+			"command": "npm",
+			"args": [
+				"run",
+				"build:app"
+			],
+			"group": "build",
+			"problemMatcher": [
+				"$tsc",
+				"$eslint-stylish"
+			]
+		},
+		{
+			"label": "Start Electron App",
+			"type": "shell",
+			"command": "npm",
+			"args": [
+				"start"
+			],
+			"group": "build",
+			"dependsOn": "Build Main Process",
+			"problemMatcher": []
+		},
+		{
+			"label": "Build Main Process",
+			"type": "shell",
+			"command": "npm",
+			"args": [
+				"run",
+				"build:main"
+			],
+			"group": "build",
+			"problemMatcher": ["$tsc"]
+		}
+	]
+}
