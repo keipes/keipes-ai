@@ -1,39 +1,31 @@
 # Keipes AI Electron Application
 
-Keipes AI is a sophisticated cross-platform desktop application engineered for seamless AI interactions and content generation. Built on a modern technology stack utilizing Electron 30, TypeScript, and React 18, this application provides a comprehensive suite of AI-powered features through a secure, native desktop interface.
+Keipes AI is a sophisticated cross-platform desktop application engineered for seamless AI interactions and content generation. Built on a modern technology stack utilizing Electron, TypeScript, and React, this application provides a comprehensive suite of AI-powered features through a secure, native desktop interface.
 
-The application architecture leverages Electron's multi-process model to ensure optimal performance and security, with the main process handling system-level operations and IPC communication, while the renderer process manages the React-based user interface. All AI interactions are processed client-side through direct API integration with leading AI service providers, eliminating the need for intermediary backend infrastructure.
+The application architecture leverages Electron's multi-process model to ensure optimal performance and security, with the main process handling system-level operations and IPC communication, while the renderer process manages the React-based user interface.
 
 ## Core Features & Capabilities
 
-### Intelligent Chat Interface
-The application provides a sophisticated conversational AI interface powered by Google's Gemini AI models. The chat system implements real-time message processing with streaming responses, conversation history persistence, and context-aware interactions. The interface supports markdown rendering for rich text formatting, code syntax highlighting, and seamless integration with the underlying AI provider APIs.
+### Chat Interface
+The application provides a conversational interface with message input and display functionality. The chat system includes conversation history display and message handling through the React-based frontend.
 
-### Advanced Image Generation
-Dual-provider image generation capabilities offer flexibility and quality options for visual content creation:
-- **Gemini AI Integration**: Utilizes Google's Imagen models for high-quality image synthesis with natural language prompts, offering generous free-tier usage
-- **OpenAI DALL-E Integration**: Premium image generation service providing enhanced creative control and artistic style options through OpenAI's DALL-E models
+### Image Generation Interface
+The application includes an image generation interface with prompt input and image display capabilities. The interface provides form elements for entering generation prompts and displaying results.
 
-### Dynamic Provider Management
-The application implements a flexible provider selection system allowing users to choose between different AI services based on their specific needs:
-- **Gemini Provider**: Default option offering robust performance with free-tier access, ideal for frequent usage without API costs
-- **OpenAI Provider**: Premium option requiring API key authentication, delivering enhanced capabilities and specialized model access
-
-### Comprehensive Settings Management
-A centralized configuration system manages all application preferences, API credentials, and provider selections:
-- **Secure Credential Storage**: API keys are encrypted and stored locally using Electron's secure storage mechanisms
-- **Provider Configuration**: Granular control over which AI services to use for different feature sets
-- **Application Preferences**: Customizable interface settings, theme options, and behavioral configurations
-- **Configuration Persistence**: All settings are automatically saved and restored between application sessions
+### Settings Management
+A settings management system handles application preferences and configuration:
+- **Credential Storage**: API key input fields for service authentication
+- **Application Preferences**: Interface settings including theme options and behavioral configurations
+- **Configuration Persistence**: Settings are maintained using browser local storage
 
 ### Cross-Platform Desktop Integration
 Native desktop application capabilities ensure optimal user experience across all major operating systems:
 - **macOS Integration**: Full support for macOS-specific features including native menus, notifications, and system integration
-- **Windows Compatibility**: Comprehensive Windows 10/11 support with proper installer packages and system tray integration
+- **Windows Compatibility**: Comprehensive Windows support with proper installer packages and system tray integration
 - **Linux Distribution**: Universal compatibility through AppImage packaging, supporting most Linux distributions
 
 ### Modern User Interface Design
-The interface is built using React 18 with a focus on usability and performance:
+The interface is built using React with a focus on usability and performance:
 - **Dark Theme Interface**: Professionally designed dark theme optimized for extended usage and reduced eye strain
 - **Responsive Layout**: Adaptive interface that works seamlessly across different screen sizes and resolutions
 - **Accessibility Features**: Full keyboard navigation support and screen reader compatibility
@@ -47,12 +39,12 @@ The interface is built using React 18 with a focus on usability and performance:
 
 Before installing Keipes AI, ensure your development environment meets the following requirements:
 
-- **Node.js**: Version 16.0 or higher (LTS recommended for stability)
-- **npm**: Version 7.0 or higher (or yarn 1.22+ as alternative)
+- **Node.js**: Current LTS version recommended for stability
+- **npm**: Latest stable version (or yarn as alternative)
 - **Operating System**: 
-  - macOS 10.15 (Catalina) or later
-  - Windows 10 version 1903 or later
-  - Linux with glibc 2.17 or later (Ubuntu 18.04+, CentOS 8+, Fedora 29+)
+  - macOS (recent versions)
+  - Windows (recent versions)
+  - Linux (most modern distributions)
 - **Memory**: Minimum 4GB RAM (8GB recommended for optimal performance)
 - **Storage**: At least 500MB free disk space for installation and dependencies
 
@@ -124,7 +116,7 @@ npm run dev
 
 This command initiates the following development services:
 - **Main Process Compilation**: TypeScript compiler in watch mode for the Electron main process
-- **DevTools Integration**: Automatic opening of Chromium DevTools for debugging
+- **DevTools Integration**: Automatic opening of Developer Tools for debugging
 - **Hot Module Replacement**: Instant reloading when source files change
 - **Error Reporting**: Real-time compilation error display in terminal and application
 
@@ -159,7 +151,7 @@ Vite development server with React Fast Refresh, providing:
 - **Instant Hot Reloading**: Sub-second updates when React components change
 - **State Preservation**: Component state maintained across reloads
 - **Enhanced Error Overlay**: Detailed error information with source map integration
-- **Development Proxy**: API request proxying for testing external service integration
+- **Development Proxy**: API request proxying for testing external service connections
 
 ### Production Build System
 
@@ -172,7 +164,7 @@ The build system utilizes a multi-stage compilation process optimized for perfor
 npm run build:main
 ```
 This command performs TypeScript compilation specifically for the Electron main process:
-- **Source Transformation**: Converts TypeScript to optimized JavaScript with target ES2020
+- **Source Transformation**: Converts TypeScript to optimized JavaScript for modern Node.js environments
 - **Module Resolution**: Resolves all imports and dependencies for Node.js environment
 - **Type Checking**: Validates all TypeScript types and interfaces
 - **Asset Copying**: Processes and copies necessary static assets for main process
@@ -213,59 +205,24 @@ Creates platform-specific installation packages using electron-builder:
 
 ## Application Configuration & Setup
 
-### Comprehensive API Key Configuration
+### Configuration Setup
 
-The application requires proper API key configuration to access AI services. The configuration system provides secure credential management with encryption and validation.
-
-#### Initial Setup Process
+The application includes configuration options accessible through the Settings interface:
 
 1. **Launch Application**: Start Keipes AI using `npm start` or the built executable
 2. **Navigate to Settings**: Access the Settings tab from the main navigation interface
-3. **Configure Service Credentials**: Enter your API keys for the desired AI services
+3. **Configure Options**: Set up application preferences and any required credentials
 
-#### Detailed API Key Setup
+#### Settings Interface
 
-**Gemini AI Configuration**:
-- **Purpose**: Required for both chat interactions and image generation through Google's AI services
-- **Acquisition**: Obtain your free API key from [Google AI Studio](https://aistudio.google.com/app/apikey)
-- **Free Tier**: Generous usage limits suitable for most personal and development use cases
-- **Configuration**: Enter the key in the "Gemini API Key" field in application settings
-- **Validation**: The application automatically validates the key format and service connectivity
+The settings interface provides options for configuring the application according to your needs. The available configuration options include API credentials for external services and application preferences.
 
-**OpenAI API Configuration** (Optional):
-- **Purpose**: Enhanced image generation capabilities using DALL-E models
-- **Acquisition**: Requires OpenAI account with billing setup at [OpenAI Platform](https://platform.openai.com/api-keys)
-- **Usage Model**: Pay-per-use billing based on API consumption
-- **Configuration**: Enter your OpenAI API key in the dedicated settings field
-- **Advanced Features**: Access to latest DALL-E models and enhanced creative options
+#### Settings Persistence
 
-#### Provider Selection Strategy
-
-**Image Generation Provider Selection**:
-The application allows you to choose your preferred image generation service based on your requirements:
-
-- **Gemini Provider (Recommended for most users)**:
-  - **Cost**: Free tier with generous limits
-  - **Quality**: High-quality image generation suitable for most use cases
-  - **Speed**: Fast response times with efficient processing
-  - **Best For**: Personal projects, experimentation, and regular usage without cost concerns
-
-- **OpenAI Provider (Premium option)**:
-  - **Cost**: Usage-based billing with per-image charges
-  - **Quality**: Premium image quality with advanced artistic capabilities
-  - **Customization**: Enhanced style control and creative parameter adjustment
-  - **Best For**: Professional projects requiring specific artistic styles or maximum quality
-
-#### Settings Persistence & Security
-
-**Secure Storage Implementation**:
-- **Encryption**: All API keys are encrypted using industry-standard encryption before local storage
-- **Platform Integration**: Utilizes operating system keychain services (macOS Keychain, Windows Credential Manager, Linux Secret Service)
-- **Session Management**: Credentials are securely cached during application sessions and cleared on exit
-- **Configuration Backup**: Settings can be exported (without sensitive credentials) for backup purposes
-
-**Configuration File Location**:
-Application settings are managed through the shared configuration system located in `src/shared/config.ts`, providing centralized management of all application preferences and service configurations.
+**Local Storage**:
+- **Configuration Storage**: Application settings are stored using browser local storage
+- **Session Management**: Settings are maintained between application sessions
+- **Data Location**: Configuration data is stored locally within the application's data directory
 
 ## Detailed Project Architecture
 
@@ -292,7 +249,7 @@ keipes-ai/
     │   ├── index.tsx       # React application entry point and DOM mounting
     │   ├── components/     # Reusable React components and UI elements
     │   ├── pages/          # Page-specific components and styling
-    │   ├── services/       # Frontend services (AI integration, state management)
+    │   ├── services/       # Frontend services and utilities
     │   └── utils/          # Utility functions, error handling, and helpers
     ├── shared/             # Cross-process shared code and configurations
     │   └── config.ts       # Centralized application configuration management
@@ -318,7 +275,7 @@ The preload script establishes a secure communication bridge between the main an
 #### Frontend Application (`src/renderer/`)
 The renderer process implements the complete user interface using modern React patterns:
 - **Component Architecture**: Modular React components with clear separation of concerns
-- **Service Integration**: Frontend services for AI provider communication and state management
+- **Service Integration**: Frontend services and state management utilities
 - **Utility Layer**: Comprehensive error handling, validation, and helper functions
 - **Styling System**: CSS-based theming with CSS custom properties for consistent design
 
@@ -328,68 +285,32 @@ Common code and configurations used across both main and renderer processes:
 - **Type Definitions**: Shared TypeScript interfaces and type definitions
 - **Constants**: Application-wide constants and configuration values
 
-## AI Service Integration Architecture
+## Application Architecture
 
-Keipes AI implements a sophisticated direct integration architecture with leading AI service providers, eliminating the need for intermediate backend infrastructure while maintaining security and performance.
+Keipes AI implements a client-side desktop application architecture using Electron's multi-process model for security and performance.
 
-### Direct Provider Integration Model
+### Application Integration Model
 
-The application connects directly to AI service providers through their official APIs, implementing a client-side integration approach that offers several advantages:
+The application is designed as a desktop interface that can integrate with external services through API connections:
 
-- **Reduced Latency**: Direct communication eliminates intermediate server hops, providing faster response times
-- **Enhanced Security**: API keys and sensitive data never traverse external servers beyond the official provider endpoints
-- **Cost Efficiency**: No backend infrastructure costs or maintenance overhead
-- **Scalability**: Leverages the inherent scalability of cloud AI services without additional infrastructure concerns
+- **Client-Side Processing**: All user interface logic runs locally within the Electron application
+- **External Service Integration**: The application can connect to external APIs for extended functionality
+- **Local Data Management**: User data and settings are managed locally within the application
+- **Secure Communication**: API interactions use standard HTTPS protocols for data transmission
 
-### Gemini AI Integration
+### Technical Implementation
 
-**Service Capabilities**:
-The Gemini AI integration provides comprehensive conversational AI and image generation capabilities:
+**Application Structure**:
+- **Frontend Interface**: React-based user interface for interaction and display
+- **Configuration Management**: Local settings storage and preference management
+- **Service Architecture**: Modular design supporting external API connections
+- **Error Handling**: Built-in error handling and user feedback systems
 
-- **Conversational AI**: Advanced natural language processing with context-aware responses
-- **Image Generation**: High-quality image synthesis using Google's Imagen models
-- **Multi-modal Understanding**: Support for text, image, and mixed-content interactions
-- **Streaming Responses**: Real-time response streaming for improved user experience
-
-**Technical Implementation**:
-- **API Client**: Custom-built TypeScript client optimized for Electron environment
-- **Authentication**: Secure API key management with encrypted local storage
-- **Error Handling**: Comprehensive error handling with retry logic and fallback mechanisms
-- **Rate Limiting**: Built-in rate limiting to comply with service quotas and prevent API abuse
-
-**Free Tier Benefits**:
-- **Generous Limits**: Substantial free usage quotas suitable for most personal and development use cases
-- **Full Feature Access**: Complete access to all AI capabilities without feature restrictions
-- **No Time Limits**: Persistent free tier access without expiration concerns
-
-### OpenAI Integration (Premium Service)
-
-**Enhanced Capabilities**:
-The OpenAI integration focuses on premium image generation through DALL-E models:
-
-- **DALL-E Integration**: Access to state-of-the-art image generation models
-- **Style Control**: Advanced artistic style and parameter customization options
-- **High Resolution**: Support for high-resolution image generation
-- **Creative Flexibility**: Enhanced prompt interpretation and creative output variation
-
-**Service Architecture**:
-- **API Abstraction**: Clean abstraction layer for OpenAI API interactions
-- **Billing Integration**: Transparent usage tracking and cost monitoring
-- **Quality Options**: Configurable quality settings for cost and performance optimization
-- **Format Support**: Multiple output formats and resolution options
-
-### Security & Privacy Implementation
-
-**Data Protection Measures**:
-- **Local Processing**: All AI interactions occur directly between the client and provider
-- **No Data Persistence**: Conversation history and generated content stored only locally
-- **Encrypted Communications**: All API communications use HTTPS/TLS encryption
-- **Credential Security**: API keys encrypted using operating system credential management systems
-
-**Privacy Guarantees**:
-- **No Intermediary Storage**: Application never stores or processes user data on intermediate servers
-- **Provider Privacy Policies**: All interactions subject only to the chosen AI provider's privacy policies
-- **User Control**: Complete user control over data retention and deletion
+**Data Protection**:
+- **Local Processing**: User interface and data management occurs locally within the application
+- **External Communication**: API communications use standard security protocols
+- **User Privacy**: Data handling follows standard desktop application practices
+- **Configuration Control**: Users maintain control over their configuration and data
 
 ## Comprehensive Development Scripts
 
@@ -421,7 +342,7 @@ The application provides a extensive collection of npm scripts designed to suppo
 **Main Process Compilation**:
 - `npm run build:main` - Compiles TypeScript main process code to optimized JavaScript
   - Full TypeScript type checking with strict mode enabled
-  - ES2020 target compilation for modern Node.js features
+  - Modern JavaScript compilation for Node.js environments
   - Source map generation for debugging production issues
 
 - `npm run build:main:watch` - Continuous compilation with file system watching
@@ -481,10 +402,10 @@ The Keipes AI application is built on a carefully selected technology stack that
 
 ### Frontend Technologies
 
-**React 18 with TypeScript**:
-- **Choice Rationale**: React 18 provides concurrent features and enhanced performance through automatic batching and Suspense improvements
+**React with TypeScript**:
+- **Choice Rationale**: React provides concurrent features and enhanced performance through automatic batching and Suspense improvements
 - **TypeScript Integration**: Full type safety across the entire frontend codebase, reducing runtime errors and improving development experience
-- **Concurrent Features**: Leverages React 18's concurrent rendering for improved user experience during AI response streaming
+- **Concurrent Features**: Leverages React's concurrent rendering for improved user experience during AI response streaming
 - **Performance Benefits**: Optimized rendering with React's fiber architecture and automatic performance optimizations
 
 **Vite Build System**:
@@ -495,11 +416,11 @@ The Keipes AI application is built on a carefully selected technology stack that
 
 ### Desktop Framework
 
-**Electron 30**:
+**Electron**:
 - **Platform Compatibility**: Universal desktop application support across macOS, Windows, and Linux
 - **Security Architecture**: Context isolation and preload scripts for secure renderer-main communication
 - **Native Integration**: Access to operating system APIs while maintaining web technology familiarity
-- **Performance Optimizations**: Latest Chromium engine with V8 performance improvements and memory optimizations
+- **Performance Optimizations**: Modern engine with performance improvements and memory optimizations
 
 ### Development Infrastructure
 
@@ -567,13 +488,13 @@ Execute `npm run dev:all` to initiate the complete development environment:
 - **Live Preview**: Changes are immediately reflected in the running application without manual restart
 - **Error Detection**: Real-time error highlighting with source map integration for precise debugging
 
-### Service Configuration & Testing
+### Application Testing
 
-**API Integration Setup**:
-1. **Provider Configuration**: Configure API keys for Gemini AI and optionally OpenAI through the application settings interface
-2. **Service Validation**: Test API connectivity and authentication through the application's built-in service verification
-3. **Feature Testing**: Verify chat functionality, image generation, and provider switching capabilities
-4. **Error Handling Testing**: Test error scenarios including network failures, invalid API keys, and rate limiting
+**Interface Validation**:
+1. **Interface Testing**: Test all interface elements and navigation between views
+2. **Settings Testing**: Verify settings can be modified and saved through the Settings interface  
+3. **Feature Testing**: Test the chat and image generation interfaces for proper display and interaction
+4. **Error Handling**: Verify the application handles user input and displays appropriate feedback
 
 ### Code Quality Assurance
 
@@ -605,7 +526,7 @@ Execute `npm run dev:all` to initiate the complete development environment:
 
 **Automated Testing Integration**:
 - **Unit Testing**: Component-level testing for React components and utility functions
-- **Integration Testing**: End-to-end testing of AI service integration and IPC communication
+- **Integration Testing**: End-to-end testing of application functionality and IPC communication
 - **Performance Testing**: Automated performance benchmarking to detect regressions
 - **Security Testing**: Automated security scanning for common vulnerabilities and best practices
 
@@ -633,7 +554,7 @@ Keipes AI provides comprehensive cross-platform support through Electron's unive
 - **Native Windows Installer**: NSIS-based installer with proper Windows integration and uninstallation support
 - **System Integration**: Windows Start Menu shortcuts, file associations, and system tray integration
 - **Windows Store Compatibility**: Application structure compatible with Windows Store submission requirements
-- **Multi-Version Windows Support**: Comprehensive support for Windows 10 and Windows 11 with version-specific optimizations
+- **Windows Platform Support**: Comprehensive Windows support with version-specific optimizations
 - **Security Integration**: Compatible with Windows Defender and security scanning requirements
 - **Installation Options**: Configurable installation options including per-user and system-wide installations
 
@@ -702,17 +623,17 @@ The distribution system utilizes electron-builder to create platform-optimized p
 - **Solution**: Verify both main and renderer builds completed successfully with `npm run build:app`
 - **Debug Steps**: Check console output for specific error messages and missing dependencies
 
-**API Integration Problems**:
+**Configuration Issues**:
 
-*Gemini API Connection Issues*:
-- **Verification**: Confirm API key validity at Google AI Studio
-- **Network Check**: Verify network connectivity and firewall settings
-- **Rate Limiting**: Check for API quota exhaustion or rate limiting responses
+*Application Setup Problems*:
+- **Installation**: Verify all dependencies are properly installed with `npm install`
+- **Build Process**: Ensure application is built using `npm run build:app` before starting
+- **Configuration**: Check that settings are properly configured through the Settings interface
 
-*OpenAI Service Problems*:
-- **Authentication**: Verify OpenAI API key has sufficient credits and proper permissions
-- **Service Status**: Check OpenAI service status for potential outages
-- **Configuration**: Ensure API key is properly configured in application settings
+*Interface Problems*:
+- **Display Issues**: Verify the application window loads correctly and interface elements are visible
+- **Navigation**: Test that all tabs (Chat, Image Generation, Settings) are accessible
+- **Settings Access**: Confirm the Settings interface opens and allows configuration changes
 
 ### Performance Optimization Guidelines
 
@@ -746,7 +667,7 @@ The distribution system utilizes electron-builder to create platform-optimized p
 - **Debugging Setup**: Configure IDE debugging for both main and renderer processes
 
 **Development Dependencies**:
-- **Node.js Version Management**: Use nvm or similar tools to maintain consistent Node.js versions
+- **Node.js Version Management**: Use nvm or similar tools to maintain consistent Node.js versions across development environments
 - **Package Management**: Use npm or yarn consistently within the project
 - **Environment Consistency**: Ensure development environment matches production requirements
 
@@ -769,7 +690,7 @@ The distribution system utilizes electron-builder to create platform-optimized p
 
 **Testing Requirements**:
 - **Unit Testing**: Test individual components and utility functions
-- **Integration Testing**: Verify AI service integration and IPC communication
+- **Integration Testing**: Verify application functionality and IPC communication
 - **Cross-Platform Testing**: Test functionality across supported operating systems
 - **Performance Testing**: Ensure changes don't introduce performance regressions
 
@@ -779,4 +700,4 @@ MIT License
 
 ---
 
-*This comprehensive documentation provides detailed guidance for developers, contributors, and users of the Keipes AI application. The application represents a modern approach to desktop AI integration, combining the flexibility of web technologies with the performance and security of native desktop applications through careful architectural design and implementation.*
+*This comprehensive documentation provides detailed guidance for developers, contributors, and users of the Keipes AI application. The application represents a modern approach to desktop application development, combining the flexibility of web technologies with the performance and security of native desktop applications through careful architectural design and implementation.*
