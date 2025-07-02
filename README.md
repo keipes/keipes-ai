@@ -147,76 +147,14 @@ keipes-ai/
     └── types/              # TypeScript type definitions
 ```
 
-## Backend Integration
+## API Integration
 
-The Electron app communicates with a backend server running on `http://localhost:5001`. The application expects the following API endpoints:
+The application integrates directly with AI service providers:
 
-### Required API Endpoints
+- **Gemini AI**: For chat interactions and image generation (free tier available)
+- **OpenAI**: For enhanced image generation with DALL-E (requires API key)
 
-- `GET /health` - Health check endpoint
-- `GET /api/providers` - Get available AI providers
-- `POST /api/chat` - Chat with AI models
-- `POST /api/generate-image` - Generate images
-- `POST /api/generate-image/openai` - Generate images using OpenAI
-
-### Backend Implementation Example
-
-Here's an example Flask server that provides the expected API:
-
-```python
-from flask import Flask, request, jsonify
-from flask_cors import CORS
-
-app = Flask(__name__)
-CORS(app)
-
-@app.route('/health', methods=['GET'])
-def health():
-    return jsonify({'status': 'healthy'})
-
-@app.route('/api/providers', methods=['GET'])
-def get_providers():
-    return jsonify({
-        'image_providers': ['gemini', 'openai'],
-        'chat_providers': ['gemini', 'openai']
-    })
-
-@app.route('/api/generate-image', methods=['POST'])
-def generate_image():
-    data = request.json
-    prompt = data['prompt']
-    # Your Gemini image generation code here
-    return jsonify({
-        'image_base64': 'base64_encoded_image_data',
-        'filename': 'generated_image.png'
-    })
-
-@app.route('/api/generate-image/openai', methods=['POST'])
-def generate_image_openai():
-    data = request.json
-    prompt = data['prompt']
-    api_key = data['api_key']
-    # Your OpenAI DALL-E image generation code here
-    return jsonify({
-        'image_base64': 'base64_encoded_image_data',
-        'filename': 'generated_image.png'
-    })
-
-@app.route('/api/chat', methods=['POST'])
-def chat():
-    data = request.json
-    message = data['message']
-    # Your chat AI code here
-    response = "AI response here"
-    return jsonify({'response': response})
-
-if __name__ == '__main__':
-    app.run(debug=True, port=5001)  # Note: port 5001, not 5000
-```
-
-### Configuration
-
-The backend URL can be configured in `src/shared/config.ts` by modifying the `BACKEND_URL` setting.
+All API interactions are handled internally by the Electron application without requiring a separate backend server.
 
 ## Available Scripts
 
@@ -248,7 +186,7 @@ The backend URL can be configured in `src/shared/config.ts` by modifying the `BA
 
 1. **Setup**: Clone repo and run `npm install`
 2. **Development**: Use `npm run dev:all` for full development with hot reloading
-3. **Testing**: Start your backend server on port 5001
+3. **Configuration**: Set up your API keys in the Settings tab
 4. **Building**: Run `npm run build:app` to build for production
 5. **Distribution**: Run `npm run build` to create platform packages
 
