@@ -63,3 +63,7 @@ applyTo: "**"
 - run app, start app, or similar: Run the app with `npm run dev`.
 - build app, build project, or similar: Build the app with `npm run build`.
 - commit: create a script to commit changes with a meaningful message, and run it
+
+## Terminal Guidelines
+
+- You are running on a Windows system. Use Windows-compatible commands and paths.
