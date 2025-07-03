@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import type { MessageData } from "../types/chat-service-interface";
 
 interface ChatMessage {
   role: "user" | "ai";
@@ -68,6 +69,7 @@ function Sidebar({ activeView, setActiveView }: SidebarProps) {
 
 interface ChatViewProps {
   onSend: () => void;
+  onClearHistory: () => void;
   chatMessages: ChatMessage[];
   chatInput: string;
   setChatInput: (input: string) => void;
@@ -75,6 +77,7 @@ interface ChatViewProps {
 
 function ChatView({
   onSend,
+  onClearHistory,
   chatMessages,
   chatInput,
   setChatInput,
@@ -82,20 +85,35 @@ function ChatView({
   return (
     <div id="chatView" className="view active">
       <div className="chat-container">
+        <div className="chat-header">
+          <h2>
+            <i className="fas fa-comments"></i> Chat
+          </h2>
+          <button
+            className="btn btn-secondary"
+            onClick={onClearHistory}
+            title="Clear chat history"
+          >
+            <i className="fas fa-trash"></i> Clear History
+          </button>
+        </div>
         <div className="chat-messages" id="chatMessages">
-          <div className="welcome-message">
-            <i className="fas fa-robot"></i>
-            <h2>Welcome to Keipes AI</h2>
-            <p>How can I help you today?</p>
-          </div>
-          {chatMessages.map((msg, i) => (
-            <div
-              key={i}
-              className={msg.role === "user" ? "user-message" : "ai-message"}
-            >
-              {msg.text}
+          {chatMessages.length === 0 ? (
+            <div className="welcome-message">
+              <i className="fas fa-robot"></i>
+              <h2>Welcome to Keipes AI</h2>
+              <p>How can I help you today?</p>
             </div>
-          ))}
+          ) : (
+            chatMessages.map((msg, i) => (
+              <div
+                key={i}
+                className={msg.role === "user" ? "user-message" : "ai-message"}
+              >
+                {msg.text}
+              </div>
+            ))
+          )}
         </div>
         <div className="chat-input-container">
           <div className="input-wrapper">
@@ -318,12 +336,73 @@ export default function App() {
     localStorage.setItem("activeView", activeView);
   }, [activeView]);
 
-  const handleSendMessage = () => {
+  useEffect(() => {
+    // Load chat history and app version on component mount
+    const loadInitialData = async () => {
+      try {
+        if (window.electronAPI) {
+          // Load chat history
+          const history = await window.electronAPI.chatGetHistory();
+          const formattedMessages: ChatMessage[] = history.map(
+            (msg: MessageData) => ({
+              role: msg.sender === "user" ? "user" : "ai",
+              text: msg.text,
+            })
+          );
+          setChatMessages(formattedMessages);
+
+          // Load app version
+          const version = await window.electronAPI.getAppVersion();
+          setAppVersion(`v${version}`);
+        }
+      } catch (error) {
+        console.error("Failed to load initial data:", error);
+        setStatus("Failed to load initial data");
+      }
+    };
+
+    loadInitialData();
+  }, []);
+
+  const handleSendMessage = async () => {
     if (!chatInput.trim()) return;
-    setChatMessages((msgs) => [...msgs, { role: "user", text: chatInput }]);
+
+    const userMessage: ChatMessage = { role: "user", text: chatInput };
+    setChatMessages((msgs) => [...msgs, userMessage]);
+    const currentInput = chatInput;
     setChatInput("");
-    setStatus("Message sent");
-    // TODO: Integrate with chat-service
+    setStatus("Sending message...");
+
+    try {
+      if (window.electronAPI) {
+        const response = await window.electronAPI.chatSendMessage(currentInput);
+        const aiMessage: ChatMessage = { role: "ai", text: response };
+        setChatMessages((msgs) => [...msgs, aiMessage]);
+        setStatus("Message sent");
+      }
+    } catch (error) {
+      console.error("Failed to send message:", error);
+      setStatus("Failed to send message");
+      // Add error message to chat
+      const errorMessage: ChatMessage = {
+        role: "ai",
+        text: "Sorry, I encountered an error processing your message.",
+      };
+      setChatMessages((msgs) => [...msgs, errorMessage]);
+    }
+  };
+
+  const handleClearHistory = async () => {
+    try {
+      if (window.electronAPI) {
+        await window.electronAPI.chatClearHistory();
+        setChatMessages([]);
+        setStatus("Chat history cleared");
+      }
+    } catch (error) {
+      console.error("Failed to clear chat history:", error);
+      setStatus("Failed to clear chat history");
+    }
   };
 
   const handleGenerateImage = () => {
@@ -352,6 +431,7 @@ export default function App() {
           {activeView === "chat" && (
             <ChatView
               onSend={handleSendMessage}
+              onClearHistory={handleClearHistory}
               chatMessages={chatMessages}
               chatInput={chatInput}
               setChatInput={setChatInput}

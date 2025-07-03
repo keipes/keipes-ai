@@ -16,6 +16,11 @@ interface ElectronAPI {
   ) => Promise<MessageBoxReturnValue | null>;
   showErrorBox: (title: string, content: string) => Promise<void>;
 
+  // Chat service methods
+  chatSendMessage: (message: string) => Promise<string>;
+  chatClearHistory: () => Promise<void>;
+  chatGetHistory: () => Promise<any[]>;
+
   // Menu event listeners
   onMenuNew: (callback: (event: IpcRendererEvent) => void) => void;
   onMenuOpen: (
@@ -38,6 +43,12 @@ const electronAPI: ElectronAPI = {
   showMessageBox: (options) => ipcRenderer.invoke("show-message-box", options),
   showErrorBox: (title, content) =>
     ipcRenderer.invoke("show-error-box", title, content),
+
+  // Chat service methods
+  chatSendMessage: (message) =>
+    ipcRenderer.invoke("chat-send-message", message),
+  chatClearHistory: () => ipcRenderer.invoke("chat-clear-history"),
+  chatGetHistory: () => ipcRenderer.invoke("chat-get-history"),
 
   // Menu event listeners
   onMenuNew: (callback) => ipcRenderer.on("menu-new", callback),

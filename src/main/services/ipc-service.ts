@@ -6,6 +6,7 @@ import {
   MessageBoxOptions,
 } from "electron";
 import { getMainWindow } from "../windows/main-window";
+import chatService from "./chat-service";
 
 interface ErrorInfo {
   message: string;
@@ -60,4 +61,36 @@ export function setupIpcHandlers(): void {
       // Here you could add more error handling logic like saving to a log file
     }
   );
+
+  // Chat service handlers
+  ipcMain.handle(
+    "chat-send-message",
+    async (event: IpcMainInvokeEvent, message: string) => {
+      try {
+        const response = await chatService.sendMessage(message);
+        return response;
+      } catch (error) {
+        console.error("Error sending chat message:", error);
+        throw error;
+      }
+    }
+  );
+
+  ipcMain.handle("chat-clear-history", (): void => {
+    try {
+      chatService.clearHistory();
+    } catch (error) {
+      console.error("Error clearing chat history:", error);
+      throw error;
+    }
+  });
+
+  ipcMain.handle("chat-get-history", () => {
+    try {
+      return chatService.getHistory();
+    } catch (error) {
+      console.error("Error getting chat history:", error);
+      throw error;
+    }
+  });
 }

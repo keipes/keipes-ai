@@ -9,6 +9,7 @@
 - Write concise code
 - Focus on small incremental changes
 - Define clear interfaces before implementing features
+- Do not write tests unless explicitly requested
 
 ### Communication Style
 
