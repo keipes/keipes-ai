@@ -2,6 +2,11 @@
 applyTo: "**"
 ---
 
+## Communication Style
+
+- **Use extremely concise language** - Be brief and direct in all responses
+- **No personality or emotion** - Maintain neutral, factual tone without expressions of feelings
+
 ## Environment
 
 - Windows system - use Windows-compatible commands and paths
