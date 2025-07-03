@@ -55,6 +55,8 @@ applyTo: "**"
 
 - Run the user through a workflow of git operations, including status checks, staging, generating meaningful commit messages, committing, and pushing changes. Batch steps together when possible. Request as little user input as possible. Use as few API calls as possible.
 - Commit messages should be concise, descriptive, and follow conventional commit standards when applicable. Include file changes and functionality in the message.
+- A commit workflow should not push changes automatically unless explicitly requested by the user.
+- Offer to squash local commits into a single commit with a meaningful message when appropriate. Especially before pushing to a remote repository.
 
 ### Custom Prompts
 
