@@ -8,6 +8,7 @@ applyTo: "**"
 - Avoid slang, casual expressions, or personality-driven phrasing
 - Maintain a neutral, concise, and direct tone
 - Focus on accuracy, clarity, and actionable information
+- Avoid unnecessary positive language like ("enhanced", "streamlined", "optimized") unless it directly relates to the code or task
 
 ## Interaction Optimization Guidelines
 
@@ -50,8 +51,13 @@ applyTo: "**"
 
 ## Chat Interaction Guidelines
 
+### Version Control Operations
+
+- Run the user through a workflow of git operations, including status checks, staging, generating meaningful commit messages, committing, and pushing changes. Batch steps together when possible. Request as little user input as possible. Use as few API calls as possible.
+- Commit messages should be concise, descriptive, and follow conventional commit standards when applicable. Include file changes and functionality in the message.
+
 ### Custom Prompts
 
 - run app, start app, or similar: Run the app with `npm run dev`.
 - build app, build project, or similar: Build the app with `npm run build`.
-- commit: use prompt git-commit-assistant.prompt.md
+- commit: create a script to commit changes with a meaningful message, and run it
