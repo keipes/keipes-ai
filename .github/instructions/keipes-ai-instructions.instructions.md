@@ -48,43 +48,10 @@ applyTo: "**"
 - Provide brief English descriptions of analysis process and decision rationale when helpful
 - Explain the "why" behind actions taken, especially for complex implementations
 
-## Cross-Platform Command Guidelines
+## Chat Interaction Guidelines
 
-### Platform Detection & Syntax
+### Custom Prompts
 
-- **Windows (PowerShell)**: Use semicolon chaining, PowerShell cmdlets, backslash paths
-- **macOS/Linux (bash/zsh)**: Use `&&` chaining, unix commands, forward slash paths
-- **Auto-detect from environment info** and use appropriate syntax first try
-
-### Windows PowerShell Commands
-
-```powershell
-# ✅ Windows PowerShell syntax
-git add .; git commit -m "message"
-Remove-Item -Path "file.txt" -Force
-Copy-Item -Path "src\*" -Destination "dest\" -Recurse
-New-Item -Path "d:\code\project" -ItemType Directory -Force
-```
-
-### macOS/Linux Commands
-
-```bash
-# ✅ macOS/Linux bash syntax  
-git add . && git commit -m "message"
-rm -f file.txt
-cp -r src/* dest/
-mkdir -p /Users/user/code/project
-```
-
-### Path Handling
-
-- **Windows**: `d:\code\project\file.txt` with backslashes
-- **macOS**: `/Users/username/code/project/file.txt` with forward slashes
-- **Linux**: `/home/username/code/project/file.txt` with forward slashes
-- Always use `-Force` flags on Windows to prevent hanging prompts
-
-### Commit Message Content
-
-- Only include direct, relevant technical changes in commit messages
-- Do not include unrelated conversation, context, or non-technical info
-- Keep commit messages focused and actionable
+- run app, start app, or similar: Run the app with `npm run dev`.
+- build app, build project, or similar: Build the app with `npm run build`.
+- commit: use prompt git-commit-assistant.prompt.md
