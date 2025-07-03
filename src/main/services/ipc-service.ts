@@ -6,14 +6,16 @@ import {
   MessageBoxOptions,
 } from "electron";
 import { getMainWindow } from "../windows/main-window";
-import chatService from "./dummy-chat-service";
-import imageService from "./dummy-image-service";
+import dummyAIService from "./dummy/dummy-ai-service";
 
 interface ErrorInfo {
   message: string;
   stack?: string;
   [key: string]: any;
 }
+
+const chatService = dummyAIService.getChatService();
+const imageService = dummyAIService.getImageService();
 
 export function setupIpcHandlers(): void {
   // App info handlers

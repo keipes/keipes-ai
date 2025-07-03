@@ -1,5 +1,6 @@
 import { AIServiceInterface } from "../../../types/ai-service-interface";
 import { ChatServiceInterface } from "../../../types/chat-service-interface";
+import { ImageServiceInterface } from "../../../types/image-service-interface";
 
 interface AIResponse {
   text: string;
@@ -20,6 +21,15 @@ class DummyAIService implements AIServiceInterface {
         `${message} (processed by Dummy Chat Service)`,
       clearHistory: () => {},
       getHistory: () => [],
+    };
+  }
+
+  getImageService(): ImageServiceInterface {
+    return {
+      generateImage: async (prompt: string, provider: string) => ({
+        image_base64: "",
+        filename: "dummy-image.png",
+      }),
     };
   }
 }
