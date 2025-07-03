@@ -7,6 +7,7 @@ import {
 } from "electron";
 import { getMainWindow } from "../windows/main-window";
 import chatService from "./chat-service";
+import imageService from "../../renderer/services/image-service";
 
 interface ErrorInfo {
   message: string;
@@ -93,4 +94,18 @@ export function setupIpcHandlers(): void {
       throw error;
     }
   });
+
+  // Image service handlers
+  ipcMain.handle(
+    "image-generate",
+    async (event: IpcMainInvokeEvent, prompt: string, provider: string) => {
+      try {
+        const imageData = await imageService.generateImage(prompt, provider);
+        return imageData;
+      } catch (error) {
+        console.error("Error generating image:", error);
+        throw error;
+      }
+    }
+  );
 }

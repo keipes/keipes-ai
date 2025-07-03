@@ -9,6 +9,10 @@ declare global {
       chatSendMessage: (message: string) => Promise<string>;
       chatClearHistory: () => Promise<void>;
       getAppVersion: () => Promise<string>;
+      imageGenerate: (
+        prompt: string,
+        provider: string
+      ) => Promise<{ image_base64: string }>;
     };
   }
 }
@@ -417,16 +421,24 @@ export default function App() {
     }
   };
 
-  const handleGenerateImage = () => {
+  const handleGenerateImage = async () => {
     if (!imagePrompt.trim()) return;
     setIsGenerating(true);
     setStatus("Generating image...");
-    // TODO: Integrate with image-service
-    setTimeout(() => {
-      setImageOutput("https://placehold.co/400x300?text=Generated+Image");
-      setIsGenerating(false);
+
+    try {
+      const imageData = await window.electronAPI.imageGenerate(
+        imagePrompt,
+        settings.imageProvider
+      );
+      setImageOutput(`data:image/png;base64,${imageData.image_base64}`);
       setStatus("Image generated");
-    }, 2000);
+    } catch (error) {
+      console.error("Failed to generate image via IPC:", error);
+      setStatus("Failed to generate image");
+    } finally {
+      setIsGenerating(false);
+    }
   };
 
   const handleSaveSettings = () => {
