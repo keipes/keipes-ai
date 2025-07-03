@@ -6,8 +6,8 @@ import {
   MessageBoxOptions,
 } from "electron";
 import { getMainWindow } from "../windows/main-window";
-import chatService from "./chat-service";
-import imageService from "../../renderer/services/image-service";
+import chatService from "./dummy-chat-service";
+import imageService from "./dummy-image-service";
 
 interface ErrorInfo {
   message: string;

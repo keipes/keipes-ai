@@ -35,6 +35,10 @@
 - Commit messages: Concise, descriptive, conventional format
 - Squash recommendation: Offer to squash local commits before pushing
 
+### Logs
+
+- Log files are stored at %APPDATA%/keipes-ai-electron/logs
+
 ## File Structure
 
 The Keipes AI Electron application is organized into the following structure:
