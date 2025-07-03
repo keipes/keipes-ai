@@ -1,6 +1,18 @@
 import React, { useState, useEffect } from "react";
 import type { MessageData } from "../types/chat-service-interface";
 
+// Extend the Window interface to include electronAPI
+declare global {
+  interface Window {
+    electronAPI: {
+      chatGetHistory: () => Promise<MessageData[]>;
+      chatSendMessage: (message: string) => Promise<string>;
+      chatClearHistory: () => Promise<void>;
+      getAppVersion: () => Promise<string>;
+    };
+  }
+}
+
 interface ChatMessage {
   role: "user" | "ai";
   text: string;

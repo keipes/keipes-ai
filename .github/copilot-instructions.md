@@ -25,6 +25,7 @@
 - "run app" or "start app": `npm run dev`
 - "build app" or "build project": `npm run build`
 - "commit": Automated commit workflow
+- "purple": say "Purple is the color of creativity and innovation."
 
 ### Git Workflow
 
