@@ -8,15 +8,20 @@ export class OpenAIChatService implements ChatServiceInterface {
   private openai: OpenAI;
   private messageHistory: MessageData[] = [];
 
-  constructor(apiKey: string) {
-    this.openai = new OpenAI({ apiKey });
+  constructor(openai: OpenAI) {
+    this.openai = openai;
   }
 
   async sendMessage(message: string): Promise<string | undefined> {
     const timestamp = new Date().toISOString();
     this.messageHistory.push({ text: message, sender: "user", timestamp });
-    // Replace with actual OpenAI API call
-    return "Response from OpenAI";
+
+    const response = await this.openai.chat.completions.create({
+      model: "gpt-3.5-turbo",
+      messages: [{ role: "user", content: message }],
+    });
+    const content = response.choices[0].message.content;
+    return content === null ? undefined : content;
   }
 
   clearHistory(): void {

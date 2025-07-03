@@ -7,7 +7,7 @@ interface AIResponse {
   timestamp: string;
 }
 
-class DummyAIService implements AIServiceInterface {
+export default class DummyAIService implements AIServiceInterface {
   async generateResponse(prompt: string): Promise<AIResponse> {
     return {
       text: `${prompt} (processed by DummyAIService)`,
@@ -33,5 +33,3 @@ class DummyAIService implements AIServiceInterface {
     };
   }
 }
-
-export default new DummyAIService();

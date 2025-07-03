@@ -10,10 +10,10 @@ import dummyAIService from "./dummy/dummy-ai-service";
 import openAIService from "./openai/openai-service";
 import { AIServiceInterface } from "../../types/ai-service-interface";
 
-const useDummyService = true; // Toggle between services
+const useDummyService = false; // Toggle between services
 const aiService: AIServiceInterface = useDummyService
-  ? dummyAIService
-  : openAIService;
+  ? new dummyAIService()
+  : new openAIService();
 
 const chatService = aiService.getChatService();
 const imageService = aiService.getImageService();
