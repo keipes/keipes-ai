@@ -162,6 +162,7 @@ interface ImageViewProps {
   setImagePrompt: (prompt: string) => void;
   imageOutput: string;
   isGenerating: boolean;
+  className?: string; // Add className prop
 }
 
 function ImageView({
@@ -170,9 +171,10 @@ function ImageView({
   setImagePrompt,
   imageOutput,
   isGenerating,
+  className,
 }: ImageViewProps) {
   return (
-    <div id="imageView" className="view">
+    <div id="imageView" className={className || "view"}> {/* Apply className dynamically */}
       <div className="image-container">
         <div className="image-input-section">
           <h2>
@@ -225,11 +227,12 @@ interface SettingsViewProps {
   settings: Settings;
   setSettings: (settings: Settings | ((prev: Settings) => Settings)) => void;
   onSave: () => void;
+  className?: string; // Add className prop
 }
 
-function SettingsView({ settings, setSettings, onSave }: SettingsViewProps) {
+function SettingsView({ settings, setSettings, onSave, className }: SettingsViewProps) {
   return (
-    <div id="settingsView" className="view">
+    <div id="settingsView" className={className || "view"}> {/* Apply className dynamically */}
       <div className="settings-container">
         <h2>
           <i className="fas fa-cog"></i> Settings
@@ -468,6 +471,7 @@ export default function App() {
               setImagePrompt={setImagePrompt}
               imageOutput={imageOutput}
               isGenerating={isGenerating}
+              className="view active"
             />
           )}
           {activeView === "settings" && (
@@ -475,6 +479,7 @@ export default function App() {
               settings={settings}
               setSettings={setSettings}
               onSave={handleSaveSettings}
+              className="view active"
             />
           )}
         </section>
