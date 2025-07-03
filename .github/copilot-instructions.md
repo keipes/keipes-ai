@@ -38,6 +38,7 @@
 ### Logs
 
 - Log files are stored at %APPDATA%/keipes-ai-electron/logs
+- Log file names: `app-${new Date().toISOString().split("T")[0]}.log`
 
 ## File Structure
 
