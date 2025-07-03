@@ -22,7 +22,7 @@ export function createMainWindow(): BrowserWindow {
   // Load the app
   if (process.argv.includes("--dev")) {
     // Load from Vite dev server
-    mainWindow.loadURL("http://localhost:5173");
+    mainWindow.loadURL("http://localhost:5173/pages/index.html");
   } else {
     // Load built file
     mainWindow.loadFile(
