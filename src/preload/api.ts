@@ -21,6 +21,12 @@ interface ElectronAPI {
   chatClearHistory: () => Promise<void>;
   chatGetHistory: () => Promise<any[]>;
 
+  // Image generation method
+  imageGenerate: (
+    prompt: string,
+    provider: string
+  ) => Promise<{ image_base64: string }>;
+
   // Menu event listeners
   onMenuNew: (callback: (event: IpcRendererEvent) => void) => void;
   onMenuOpen: (
@@ -28,6 +34,15 @@ interface ElectronAPI {
   ) => void;
   onMenuGenerateImage: (callback: (event: IpcRendererEvent) => void) => void;
   onMenuChat: (callback: (event: IpcRendererEvent) => void) => void;
+
+  // Error logging method
+  logError: (errorInfo: {
+    message: string;
+    code: string;
+    stack?: string;
+    context: Record<string, any>;
+    timestamp: string;
+  }) => Promise<void>;
 
   // Remove listeners
   removeAllListeners: (channel: string) => void;
@@ -50,12 +65,19 @@ const electronAPI: ElectronAPI = {
   chatClearHistory: () => ipcRenderer.invoke("chat-clear-history"),
   chatGetHistory: () => ipcRenderer.invoke("chat-get-history"),
 
+  // Image generation method
+  imageGenerate: (prompt, provider) =>
+    ipcRenderer.invoke("image-generate", prompt, provider),
+
   // Menu event listeners
   onMenuNew: (callback) => ipcRenderer.on("menu-new", callback),
   onMenuOpen: (callback) => ipcRenderer.on("menu-open", callback),
   onMenuGenerateImage: (callback) =>
     ipcRenderer.on("menu-generate-image", callback),
   onMenuChat: (callback) => ipcRenderer.on("menu-chat", callback),
+
+  // Error logging method
+  logError: (errorInfo) => ipcRenderer.invoke("log-error", errorInfo),
 
   // Remove listeners
   removeAllListeners: (channel) => ipcRenderer.removeAllListeners(channel),

@@ -1,19 +1,11 @@
 import React, { useState, useEffect } from "react";
 import type { MessageData } from "../types/chat-service-interface";
+import type { ElectronAPI } from "../preload/api";
 
 // Extend the Window interface to include electronAPI
 declare global {
   interface Window {
-    electronAPI: {
-      chatGetHistory: () => Promise<MessageData[]>;
-      chatSendMessage: (message: string) => Promise<string>;
-      chatClearHistory: () => Promise<void>;
-      getAppVersion: () => Promise<string>;
-      imageGenerate: (
-        prompt: string,
-        provider: string
-      ) => Promise<{ image_base64: string }>;
-    };
+    electronAPI: ElectronAPI;
   }
 }
 
