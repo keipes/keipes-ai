@@ -77,7 +77,7 @@ The Keipes AI Electron application is organized into the following structure:
 
 ##### `services`
 
-- `chat-service.ts`: Handles chat-related functionality.
+- `chat-service.ts.backup`: Backup of chat-related functionality.
 - `image-service.ts`: Handles image generation functionality.
 
 ##### `utils`
@@ -91,4 +91,7 @@ The Keipes AI Electron application is organized into the following structure:
 
 #### `types`
 
+- `chat-service-interface.ts`: Type definitions for chat service.
 - `electron.d.ts`: Type definitions for Electron.
+- `image-service-interface.ts`: Type definitions for image service.
+- `service-interface.ts`: General service type definitions.
