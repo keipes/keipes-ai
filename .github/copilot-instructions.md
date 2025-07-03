@@ -61,6 +61,14 @@ The Keipes AI Electron application is organized into the following structure:
 - `menu/application-menu.ts`: Defines the application menu.
 - `services/ipc-service.ts`: Handles inter-process communication.
 - `services/logger.ts`: Provides logging functionality.
+- `services/dummy/`
+  - `dummy-ai-service.ts`: Dummy AI service implementation.
+  - `dummy-chat-service.ts`: Dummy chat service implementation.
+  - `dummy-image-service.ts`: Dummy image service implementation.
+- `services/openai/`
+  - `openai-chat-service.ts`: OpenAI chat service implementation.
+  - `openai-image-service.ts`: OpenAI image service implementation.
+  - `openai-service.ts`: OpenAI service manager.
 - `windows/main-window.ts`: Manages the main application window.
 
 #### `preload`
@@ -71,25 +79,11 @@ The Keipes AI Electron application is organized into the following structure:
 
 - `App.tsx`: Main React component for the renderer process.
 - `index.tsx`: Entry point for the React application.
-
-##### `components`
-
-- `view-manager.ts`: Manages switching between different views in the application.
-
-##### `pages`
-
-- `index.html`: HTML template for the renderer process.
-- `styles.css`: Global styles for the application.
-
-##### `services`
-
-- `chat-service.ts.backup`: Backup of chat-related functionality.
-- `image-service.ts`: Handles image generation functionality.
-
-##### `utils`
-
-- `common.ts`: Contains shared utility functions.
-- `error-handling.ts`: Provides error handling utilities.
+- `components/view-manager.ts`: Manages switching between different views in the application.
+- `pages/index.html`: HTML template for the renderer process.
+- `pages/styles.css`: Global styles for the application.
+- `utils/common.ts`: Contains shared utility functions.
+- `utils/error-handling.ts`: Provides error handling utilities.
 
 #### `shared`
 
@@ -97,6 +91,7 @@ The Keipes AI Electron application is organized into the following structure:
 
 #### `types`
 
+- `ai-service-interface.ts`: Type definitions for AI service.
 - `chat-service-interface.ts`: Type definitions for chat service.
 - `electron.d.ts`: Type definitions for Electron.
 - `image-service-interface.ts`: Type definitions for image service.

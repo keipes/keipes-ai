@@ -5,6 +5,7 @@ import { OpenAIChatService } from "./openai-chat-service";
 import OpenAIImageService from "./openai-image-service";
 import { ImageServiceInterface } from "../../../types/image-service-interface";
 import OpenAI from "openai";
+import { getApiKey } from "../secret-service";
 import logger from "../logger";
 
 class OpenAIService implements AIServiceInterface {
@@ -18,11 +19,15 @@ class OpenAIService implements AIServiceInterface {
   }
 
   getChatService(): ChatServiceInterface {
-    return new OpenAIChatService(this.openai);
+    const apiKey = getApiKey() || process.env.OPENAI_API_KEY || "";
+    const client = new OpenAI({ apiKey });
+    return new OpenAIChatService(client);
   }
 
   getImageService(): ImageServiceInterface {
-    return new OpenAIImageService(this.openai);
+    const apiKey = getApiKey() || process.env.OPENAI_API_KEY || "";
+    const client = new OpenAI({ apiKey });
+    return new OpenAIImageService(client);
   }
 }
 
