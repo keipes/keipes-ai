@@ -14,7 +14,7 @@ class OpenAIService implements AIServiceInterface {
   constructor() {
     const apiKey = process.env.OPENAI_API_KEY || "default-api-key"; // Replace with secure key retrieval
     this.openai = new OpenAI({ apiKey });
-    logger.info("OpenAIService initialized with key: " + apiKey);
+    logger.info("OpenAIService initialized.");
   }
 
   getChatService(): ChatServiceInterface {
@@ -22,7 +22,7 @@ class OpenAIService implements AIServiceInterface {
   }
 
   getImageService(): ImageServiceInterface {
-    return OpenAIImageService;
+    return new OpenAIImageService(this.openai);
   }
 }
 
