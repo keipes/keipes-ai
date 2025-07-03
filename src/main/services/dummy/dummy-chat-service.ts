@@ -4,7 +4,7 @@
 import {
   ChatServiceInterface,
   MessageData,
-} from "../../types/chat-service-interface";
+} from "../../../types/chat-service-interface";
 
 class ChatService implements ChatServiceInterface {
   private messageHistory: MessageData[] = []; // Stores message history
