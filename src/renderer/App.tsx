@@ -174,7 +174,9 @@ function ImageView({
   className,
 }: ImageViewProps) {
   return (
-    <div id="imageView" className={className || "view"}> {/* Apply className dynamically */}
+    <div id="imageView" className={className || "view"}>
+      {" "}
+      {/* Apply className dynamically */}
       <div className="image-container">
         <div className="image-input-section">
           <h2>
@@ -230,9 +232,16 @@ interface SettingsViewProps {
   className?: string; // Add className prop
 }
 
-function SettingsView({ settings, setSettings, onSave, className }: SettingsViewProps) {
+function SettingsView({
+  settings,
+  setSettings,
+  onSave,
+  className,
+}: SettingsViewProps) {
   return (
-    <div id="settingsView" className={className || "view"}> {/* Apply className dynamically */}
+    <div id="settingsView" className={className || "view"}>
+      {" "}
+      {/* Apply className dynamically */}
       <div className="settings-container">
         <h2>
           <i className="fas fa-cog"></i> Settings
