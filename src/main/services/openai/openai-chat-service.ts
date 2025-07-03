@@ -2,7 +2,7 @@ import OpenAI from "openai";
 import {
   ChatServiceInterface,
   MessageData,
-} from "../../types/chat-service-interface";
+} from "../../../types/chat-service-interface";
 
 export class OpenAIChatService implements ChatServiceInterface {
   private openai: OpenAI;

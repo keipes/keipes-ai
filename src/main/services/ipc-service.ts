@@ -7,15 +7,22 @@ import {
 } from "electron";
 import { getMainWindow } from "../windows/main-window";
 import dummyAIService from "./dummy/dummy-ai-service";
+import openAIService from "./openai/openai-service";
+import { AIServiceInterface } from "../../types/ai-service-interface";
+
+const useDummyService = true; // Toggle between services
+const aiService: AIServiceInterface = useDummyService
+  ? dummyAIService
+  : openAIService;
+
+const chatService = aiService.getChatService();
+const imageService = aiService.getImageService();
 
 interface ErrorInfo {
   message: string;
   stack?: string;
   [key: string]: any;
 }
-
-const chatService = dummyAIService.getChatService();
-const imageService = dummyAIService.getImageService();
 
 export function setupIpcHandlers(): void {
   // App info handlers
