@@ -384,6 +384,23 @@ export default function App() {
     loadInitialData();
   }, []);
 
+  // Load stored API keys on mount
+  useEffect(() => {
+    (async () => {
+      if (window.electronAPI) {
+        const [gemKey, openKey] = await Promise.all([
+          window.electronAPI.getApiKey("gemini"),
+          window.electronAPI.getApiKey("openai"),
+        ]);
+        setSettings((s) => ({
+          ...s,
+          geminiApiKey: gemKey || "",
+          openaiApiKey: openKey || "",
+        }));
+      }
+    })();
+  }, []);
+
   const handleSendMessage = async () => {
     if (!chatInput.trim()) return;
 
@@ -445,9 +462,16 @@ export default function App() {
     }
   };
 
-  const handleSaveSettings = () => {
+  // Handle saving settings, including secure storage
+  const handleSaveSettings = async () => {
+    if (window.electronAPI) {
+      await window.electronAPI.storeApiKey("gemini", settings.geminiApiKey);
+      await window.electronAPI.storeApiKey("openai", settings.openaiApiKey);
+    }
     setStatus("Settings saved");
-    // TODO: Persist settings
+    if (settings.autoSave) {
+      localStorage.setItem("settings", JSON.stringify(settings));
+    }
   };
 
   return (

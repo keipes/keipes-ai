@@ -9,7 +9,7 @@ import { getMainWindow } from "../windows/main-window";
 import dummyAIService from "./dummy/dummy-ai-service";
 import openAIService from "./openai/openai-service";
 import { AIServiceInterface } from "../../types/ai-service-interface";
-import { storeApiKey, getApiKey } from "./secret-service";
+import { storeApiKey, getApiKey, clearApiKey } from "./secret-service";
 
 const useDummyService = false; // Toggle between services
 const aiService: AIServiceInterface = useDummyService
@@ -122,16 +122,23 @@ export function setupIpcHandlers(): void {
   // API key storage handlers
   ipcMain.handle(
     "store-api-key",
-    (event: IpcMainInvokeEvent, key: string): boolean => {
-      storeApiKey(key);
+    (event: IpcMainInvokeEvent, provider: string, key: string): boolean => {
+      storeApiKey(provider, key);
       return true;
     }
   );
 
   ipcMain.handle(
     "get-api-key",
-    (): string | null => {
-      return getApiKey();
+    (event: IpcMainInvokeEvent, provider: string): string | null => {
+      return getApiKey(provider);
+    }
+  );
+
+  ipcMain.handle(
+    "clear-api-key",
+    (event: IpcMainInvokeEvent, provider: string): boolean => {
+      return clearApiKey(provider);
     }
   );
 }

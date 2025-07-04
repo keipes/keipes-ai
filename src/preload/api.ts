@@ -44,6 +44,11 @@ interface ElectronAPI {
     timestamp: string;
   }) => Promise<void>;
 
+  // API key storage methods
+  storeApiKey: (provider: string, key: string) => Promise<boolean>;
+  getApiKey: (provider: string) => Promise<string | null>;
+  clearApiKey: (provider: string) => Promise<boolean>;
+
   // Remove listeners
   removeAllListeners: (channel: string) => void;
 }
@@ -78,6 +83,12 @@ const electronAPI: ElectronAPI = {
 
   // Error logging method
   logError: (errorInfo) => ipcRenderer.invoke("log-error", errorInfo),
+
+  // API key storage
+  storeApiKey: (provider, key) =>
+    ipcRenderer.invoke("store-api-key", provider, key),
+  getApiKey: (provider) => ipcRenderer.invoke("get-api-key", provider),
+  clearApiKey: (provider) => ipcRenderer.invoke("clear-api-key", provider),
 
   // Remove listeners
   removeAllListeners: (channel) => ipcRenderer.removeAllListeners(channel),

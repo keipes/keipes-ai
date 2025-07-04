@@ -19,7 +19,8 @@
     "start:renderer:dev": "vite --config vite.config.mjs",
     "start": "npm run build && npm run start:main",
     "type-check:renderer": "tsc --noEmit -p tsconfig.renderer.json",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "debug:main": "electron --inspect=5858 ."
   },
   "keywords": [
     "electron",

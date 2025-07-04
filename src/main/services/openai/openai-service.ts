@@ -8,6 +8,8 @@ import OpenAI from "openai";
 import { getApiKey } from "../secret-service";
 import logger from "../logger";
 
+const PROVIDER = "openai"; // Define the provider name for OpenAI
+
 class OpenAIService implements AIServiceInterface {
   // openapi client
   private openai: OpenAI;
@@ -19,13 +21,13 @@ class OpenAIService implements AIServiceInterface {
   }
 
   getChatService(): ChatServiceInterface {
-    const apiKey = getApiKey() || process.env.OPENAI_API_KEY || "";
+    const apiKey = getApiKey(PROVIDER) || process.env.OPENAI_API_KEY || "";
     const client = new OpenAI({ apiKey });
     return new OpenAIChatService(client);
   }
 
   getImageService(): ImageServiceInterface {
-    const apiKey = getApiKey() || process.env.OPENAI_API_KEY || "";
+    const apiKey = getApiKey(PROVIDER) || process.env.OPENAI_API_KEY || "";
     const client = new OpenAI({ apiKey });
     return new OpenAIImageService(client);
   }
