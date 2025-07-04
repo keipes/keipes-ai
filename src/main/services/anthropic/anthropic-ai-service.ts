@@ -9,7 +9,7 @@ import logger from "../logger";
 
 const PROVIDER = "anthropic"; // Define the provider name for Anthropic
 
-class AnthropicService implements AIServiceInterface {
+export default class AnthropicService implements AIServiceInterface {
   private anthropic: Anthropic;
 
   constructor() {
@@ -30,5 +30,3 @@ class AnthropicService implements AIServiceInterface {
     return new AnthropicImageService(client);
   }
 }
-
-export default AnthropicService;

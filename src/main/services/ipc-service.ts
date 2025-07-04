@@ -8,13 +8,22 @@ import {
 import { getMainWindow } from "../windows/main-window";
 import dummyAIService from "./dummy/dummy-ai-service";
 import openAIService from "./openai/openai-service";
+import anthropicAIService from "./anthropic/anthropic-ai-service";
 import { AIServiceInterface } from "../../types/ai-service-interface";
 import { storeApiKey, getApiKey, clearApiKey } from "./secret-service";
 
-const useDummyService = false; // Toggle between services
-const aiService: AIServiceInterface = useDummyService
-  ? new dummyAIService()
-  : new openAIService();
+// const useDummyService = false; // Toggle between services
+// const aiService: AIServiceInterface = useDummyService
+//   ? new dummyAIService()
+//   : new openAIService();
+
+const availableServices: { [key: string]: new () => AIServiceInterface } = {
+  dummy: dummyAIService,
+  openai: openAIService,
+  anthropic: anthropicAIService, // Uncomment and provide a class if Anthropic is implemented
+};
+const selectedService = "anthropic"; // Default service, can be changed dynamically
+const aiService: AIServiceInterface = new availableServices[selectedService]();
 
 const chatService = aiService.getChatService();
 const imageService = aiService.getImageService();
