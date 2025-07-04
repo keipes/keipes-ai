@@ -17,6 +17,7 @@ interface ChatMessage {
 interface Settings {
   geminiApiKey: string;
   openaiApiKey: string;
+  anthropicApiKey: string;
   imageProvider: string;
   darkMode: boolean;
   autoSave: boolean;
@@ -265,6 +266,18 @@ function SettingsView({
             />
           </div>
           <div className="input-group">
+            <label htmlFor="anthropicApiKey">Anthropic API Key:</label>
+            <input
+              type="password"
+              id="anthropicApiKey"
+              value={settings.anthropicApiKey}
+              onChange={(e) =>
+                setSettings((s) => ({ ...s, anthropicApiKey: e.target.value }))
+              }
+              placeholder="Enter your Anthropic API key"
+            />
+          </div>
+          <div className="input-group">
             <label htmlFor="imageProvider">Image Generation Provider:</label>
             <select
               id="imageProvider"
@@ -275,6 +288,7 @@ function SettingsView({
             >
               <option value="gemini">Google Gemini (Free)</option>
               <option value="openai">OpenAI DALL-E (Requires API Key)</option>
+              <option value="anthropic">Anthropic Claude (Chat Only)</option>
             </select>
           </div>
         </div>
@@ -347,6 +361,7 @@ export default function App() {
   const [settings, setSettings] = useState<Settings>({
     geminiApiKey: "",
     openaiApiKey: "",
+    anthropicApiKey: "",
     imageProvider: "gemini",
     darkMode: true,
     autoSave: false,
@@ -388,14 +403,16 @@ export default function App() {
   useEffect(() => {
     (async () => {
       if (window.electronAPI) {
-        const [gemKey, openKey] = await Promise.all([
+        const [gemKey, openKey, anthropicKey] = await Promise.all([
           window.electronAPI.getApiKey("gemini"),
           window.electronAPI.getApiKey("openai"),
+          window.electronAPI.getApiKey("anthropic"),
         ]);
         setSettings((s) => ({
           ...s,
           geminiApiKey: gemKey || "",
           openaiApiKey: openKey || "",
+          anthropicApiKey: anthropicKey || "",
         }));
       }
     })();
@@ -467,6 +484,10 @@ export default function App() {
     if (window.electronAPI) {
       await window.electronAPI.storeApiKey("gemini", settings.geminiApiKey);
       await window.electronAPI.storeApiKey("openai", settings.openaiApiKey);
+      await window.electronAPI.storeApiKey(
+        "anthropic",
+        settings.anthropicApiKey
+      );
     }
     setStatus("Settings saved");
     if (settings.autoSave) {

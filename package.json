@@ -41,6 +41,7 @@
     "typescript": "^5.8.3"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.56.0",
     "@vitejs/plugin-react": "^4.6.0",
     "axios": "^1.8.0",
     "openai": "^5.8.2",
