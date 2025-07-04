@@ -32,7 +32,7 @@
 - Batch operations: Combine status checks, staging, committing, and pushing
 - Minimize user input
 - Never auto-push: Always ask before pushing
-- Commit messages: Concise, descriptive, conventional format
+- Commit messages: Generate for the user in a concise, descriptive, conventional format
 - Squash recommendation: Offer to squash local commits before pushing
 
 ### Logs

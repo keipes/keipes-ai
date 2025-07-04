@@ -34,8 +34,6 @@ export function ChatView({
         <div className="chat-messages" id="chatMessages">
           {chatMessages.length === 0 ? (
             <div className="welcome-message">
-              <i className="fas fa-robot"></i>
-              <h2>Welcome to Keipes AI</h2>
               <p>How can I help you today?</p>
             </div>
           ) : (
