@@ -11,6 +11,8 @@ import openAIService from "./openai/openai-service";
 import anthropicAIService from "./anthropic/anthropic-ai-service";
 import { AIServiceInterface } from "../../types/ai-service-interface";
 import { storeApiKey, getApiKey, clearApiKey } from "./secret-service";
+import { ChatServiceInterface } from "../../types/chat-service-interface";
+import { ImageServiceInterface } from "../../types/image-service-interface";
 
 // const useDummyService = false; // Toggle between services
 // const aiService: AIServiceInterface = useDummyService
@@ -25,8 +27,16 @@ const availableServices: { [key: string]: new () => AIServiceInterface } = {
 const selectedService = "anthropic"; // Default service, can be changed dynamically
 const aiService: AIServiceInterface = new availableServices[selectedService]();
 
-const chatService = aiService.getChatService();
-const imageService = aiService.getImageService();
+// const chatService = aiService.getChatService();
+// const imageService = aiService.getImageService();
+
+function getChatService(): ChatServiceInterface {
+  return aiService.getChatService();
+}
+
+function getImageService(): ImageServiceInterface {
+  return aiService.getImageService();
+}
 
 interface ErrorInfo {
   message: string;
@@ -87,7 +97,7 @@ export function setupIpcHandlers(): void {
     "chat-send-message",
     async (event: IpcMainInvokeEvent, message: string) => {
       try {
-        const response = await chatService.sendMessage(message);
+        const response = await getChatService().sendMessage(message);
         return response;
       } catch (error) {
         console.error("Error sending chat message:", error);
@@ -98,7 +108,7 @@ export function setupIpcHandlers(): void {
 
   ipcMain.handle("chat-clear-history", (): void => {
     try {
-      chatService.clearHistory();
+      getChatService().clearHistory();
     } catch (error) {
       console.error("Error clearing chat history:", error);
       throw error;
@@ -107,7 +117,7 @@ export function setupIpcHandlers(): void {
 
   ipcMain.handle("chat-get-history", () => {
     try {
-      return chatService.getHistory();
+      return getChatService().getHistory();
     } catch (error) {
       console.error("Error getting chat history:", error);
       throw error;
@@ -119,7 +129,10 @@ export function setupIpcHandlers(): void {
     "image-generate",
     async (event: IpcMainInvokeEvent, prompt: string, provider: string) => {
       try {
-        const imageData = await imageService.generateImage(prompt, provider);
+        const imageData = await getImageService().generateImage(
+          prompt,
+          provider
+        );
         return imageData;
       } catch (error) {
         console.error("Error generating image:", error);

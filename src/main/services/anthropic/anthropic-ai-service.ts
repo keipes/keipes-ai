@@ -13,20 +13,23 @@ export default class AnthropicService implements AIServiceInterface {
   private anthropic: Anthropic;
 
   constructor() {
-    const apiKey = process.env.ANTHROPIC_API_KEY || "default-api-key";
+    const apiKey =
+      getApiKey(PROVIDER) || process.env.ANTHROPIC_API_KEY || "default-api-key";
+    logger.info(`Initializing AnthropicService with API key: ${apiKey}`);
     this.anthropic = new Anthropic({ apiKey });
     logger.info("AnthropicService initialized.");
   }
 
   getChatService(): ChatServiceInterface {
-    const apiKey = getApiKey(PROVIDER) || process.env.ANTHROPIC_API_KEY || "";
-    const client = new Anthropic({ apiKey });
-    return new AnthropicChatService(client);
+    // return new AnthropicChatService(this.anthropic);
+    return new AnthropicChatService(
+      new Anthropic({ apiKey: getApiKey(PROVIDER) })
+    );
   }
 
   getImageService(): ImageServiceInterface {
-    const apiKey = getApiKey(PROVIDER) || process.env.ANTHROPIC_API_KEY || "";
-    const client = new Anthropic({ apiKey });
-    return new AnthropicImageService(client);
+    return new AnthropicImageService(
+      new Anthropic({ apiKey: getApiKey(PROVIDER) })
+    );
   }
 }
