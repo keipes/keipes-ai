@@ -11,13 +11,12 @@ import logger from "../logger";
 const PROVIDER = "openai"; // Define the provider name for OpenAI
 
 class OpenAIService implements AIServiceInterface {
-  // openapi client
-  private openai: OpenAI;
-
   constructor() {
-    const apiKey = process.env.OPENAI_API_KEY || "default-api-key"; // Replace with secure key retrieval
-    this.openai = new OpenAI({ apiKey });
     logger.info("OpenAIService initialized.");
+  }
+
+  getProviderName(): string {
+    return PROVIDER;
   }
 
   getChatService(): ChatServiceInterface {

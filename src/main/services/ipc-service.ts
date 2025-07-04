@@ -6,36 +6,18 @@ import {
   MessageBoxOptions,
 } from "electron";
 import { getMainWindow } from "../windows/main-window";
-import dummyAIService from "./dummy/dummy-ai-service";
-import openAIService from "./openai/openai-service";
-import anthropicAIService from "./anthropic/anthropic-ai-service";
-import { AIServiceInterface } from "../../types/ai-service-interface";
 import { storeApiKey, getApiKey, clearApiKey } from "./secret-service";
 import { ChatServiceInterface } from "../../types/chat-service-interface";
 import { ImageServiceInterface } from "../../types/image-service-interface";
 
-// const useDummyService = false; // Toggle between services
-// const aiService: AIServiceInterface = useDummyService
-//   ? new dummyAIService()
-//   : new openAIService();
-
-const availableServices: { [key: string]: new () => AIServiceInterface } = {
-  dummy: dummyAIService,
-  openai: openAIService,
-  anthropic: anthropicAIService, // Uncomment and provide a class if Anthropic is implemented
-};
-const selectedService = "anthropic"; // Default service, can be changed dynamically
-const aiService: AIServiceInterface = new availableServices[selectedService]();
-
-// const chatService = aiService.getChatService();
-// const imageService = aiService.getImageService();
+import { ProviderProxy } from "./providerProxy";
 
 function getChatService(): ChatServiceInterface {
-  return aiService.getChatService();
+  return ProviderProxy.getChatService();
 }
 
 function getImageService(): ImageServiceInterface {
-  return aiService.getImageService();
+  return ProviderProxy.getImageService();
 }
 
 interface ErrorInfo {
@@ -163,4 +145,16 @@ export function setupIpcHandlers(): void {
       return clearApiKey(provider);
     }
   );
+
+  // Provider and model management
+  ipcMain.handle(
+    "set-provider",
+    (event: IpcMainInvokeEvent, provider: string): void => {
+      ProviderProxy.setProvider(provider);
+    }
+  );
+
+  ipcMain.handle("get-provider-name", (event: IpcMainInvokeEvent): string => {
+    return ProviderProxy.getProviderName();
+  });
 }

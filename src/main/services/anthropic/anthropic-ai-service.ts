@@ -10,14 +10,10 @@ import logger from "../logger";
 const PROVIDER = "anthropic"; // Define the provider name for Anthropic
 
 export default class AnthropicService implements AIServiceInterface {
-  private anthropic: Anthropic;
+  constructor() {}
 
-  constructor() {
-    const apiKey =
-      getApiKey(PROVIDER) || process.env.ANTHROPIC_API_KEY || "default-api-key";
-    logger.info(`Initializing AnthropicService with API key: ${apiKey}`);
-    this.anthropic = new Anthropic({ apiKey });
-    logger.info("AnthropicService initialized.");
+  getProviderName(): string {
+    return PROVIDER;
   }
 
   getChatService(): ChatServiceInterface {

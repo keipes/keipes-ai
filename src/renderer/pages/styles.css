@@ -456,6 +456,12 @@ body {
   color: var(--text-muted);
 }
 
+.status-center {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 /* Scrollbar Styling */
 ::-webkit-scrollbar {
   width: 8px;

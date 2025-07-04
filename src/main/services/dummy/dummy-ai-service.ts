@@ -15,6 +15,10 @@ export default class DummyAIService implements AIServiceInterface {
     };
   }
 
+  getProviderName(): string {
+    return "dummy";
+  }
+
   getChatService(): ChatServiceInterface {
     return {
       sendMessage: async (message: string) =>

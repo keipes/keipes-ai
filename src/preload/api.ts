@@ -49,6 +49,11 @@ interface ElectronAPI {
   getApiKey: (provider: string) => Promise<string | null>;
   clearApiKey: (provider: string) => Promise<boolean>;
 
+  // Provider management methods
+  setProvider: (provider: string) => Promise<void>;
+  getProviderName: () => Promise<string>;
+  listProviders: () => Promise<string[]>;
+
   // Remove listeners
   removeAllListeners: (channel: string) => void;
 }
@@ -89,6 +94,12 @@ const electronAPI: ElectronAPI = {
     ipcRenderer.invoke("store-api-key", provider, key),
   getApiKey: (provider) => ipcRenderer.invoke("get-api-key", provider),
   clearApiKey: (provider) => ipcRenderer.invoke("clear-api-key", provider),
+
+  // Provider management methods
+  setProvider: (provider) => ipcRenderer.invoke("set-provider", provider),
+  getProviderName: () => ipcRenderer.invoke("get-provider-name"),
+
+  listProviders: () => ipcRenderer.invoke("list-providers"),
 
   // Remove listeners
   removeAllListeners: (channel) => ipcRenderer.removeAllListeners(channel),
