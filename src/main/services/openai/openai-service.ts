@@ -14,6 +14,9 @@ class OpenAIService implements AIServiceInterface {
   constructor() {
     logger.info("OpenAIService initialized.");
   }
+  listModels(): Promise<string[]> {
+    throw new Error("Method not implemented.");
+  }
 
   getProviderName(): string {
     return PROVIDER;

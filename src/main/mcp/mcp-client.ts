@@ -1,7 +1,7 @@
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
-import { StreamableHTTPClientTransport } from "@modelcontextprotocol/sdk/client/streamableHttp.js";
 import { Tool } from "@modelcontextprotocol/sdk/types.js";
 import { Messages } from "@anthropic-ai/sdk/resources/messages";
+import { HTTPClientTransport } from "./http-transport.js";
 
 export const MCPServerDefinition = {
   name: "Keipes MCP",
@@ -20,13 +20,13 @@ export default class MCPClient {
   constructor() {
     this.client = new Client(MCPServerDefinition);
     let url = new URL(MCPServerDefinition.baseUrl);
-    let transport = new StreamableHTTPClientTransport(url);
+    let transport = new HTTPClientTransport(url);
     this.client
       .connect(transport)
       .then(() => {
         console.log("Connected to MCP server");
       })
-      .catch((error) => {
+      .catch((error: any) => {
         console.error("Failed to connect to MCP server:", error);
       });
     this.client

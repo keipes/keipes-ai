@@ -8,6 +8,9 @@ interface AIResponse {
 }
 
 export default class DummyAIService implements AIServiceInterface {
+  listModels(): Promise<string[]> {
+    throw new Error("Method not implemented.");
+  }
   async generateResponse(prompt: string): Promise<AIResponse> {
     return {
       text: `${prompt} (processed by DummyAIService)`,

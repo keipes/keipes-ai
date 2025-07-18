@@ -5,4 +5,5 @@ export interface AIServiceInterface {
   getProviderName(): string;
   getChatService(): ChatServiceInterface;
   getImageService(): ImageServiceInterface;
+  listModels(): Promise<string[]>; // Optional method to list available models
 }

@@ -11,6 +11,9 @@ const PROVIDER = "anthropic"; // Define the provider name for Anthropic
 
 export default class AnthropicService implements AIServiceInterface {
   constructor() {}
+  listModels(): Promise<string[]> {
+    throw new Error("Method not implemented.");
+  }
 
   getProviderName(): string {
     return PROVIDER;

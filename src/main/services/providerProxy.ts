@@ -52,6 +52,10 @@ export class ProviderProxyClass implements AIServiceInterface, ServiceProxy {
   getProviderName() {
     return this.provider;
   }
+
+  async listModels(): Promise<string[]> {
+    return this.getProvider().listModels();
+  }
 }
 
 export const ProviderProxy = new ProviderProxyClass();
