@@ -13,6 +13,7 @@ export class OpenAIChatService implements ChatServiceInterface {
   }
 
   async sendMessage(message: string): Promise<string | undefined> {
+    console.log("Sending message to OpenAI");
     const timestamp = new Date().toISOString();
     this.messageHistory.push({ text: message, sender: "user", timestamp });
 
