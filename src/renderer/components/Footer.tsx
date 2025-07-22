@@ -1,5 +1,14 @@
 import React, { useState, useEffect } from "react";
 
+declare global {
+  interface Window {
+    electronAPI: {
+      getProviderName: () => Promise<string>;
+      setProvider: (provider: string) => Promise<void>;
+    };
+  }
+}
+
 interface FooterProps {
   status: string;
   appVersion: string;

@@ -5,9 +5,9 @@ import {
 } from "../../../types/chat-service-interface";
 import logger from "../logger";
 import MCPClient, { MCPServerDefinition } from "../../mcp/mcp-client";
-import { MessageCreateParamsNonStreaming } from "@anthropic-ai/sdk/resources/messages";
+import { MessageCreateParamsNonStreaming } from "@anthropic-ai/sdk/resources/beta/messages";
 
-const mcpClient = new MCPClient();
+// const mcpClient = new MCPClient();
 
 export class AnthropicChatService implements ChatServiceInterface {
   private anthropic: Anthropic;
@@ -45,14 +45,29 @@ export class AnthropicChatService implements ChatServiceInterface {
       const response = await this.anthropic.beta.messages.create(msg);
       console.log("Received response from Anthropic");
       console.log(JSON.stringify(response, null, 2));
-      const content = response.content[0];
-      if (content.type === "text") {
-        const assistantMessage = content.text;
-        this.messageHistory.push({
-          text: assistantMessage,
-          sender: "ai",
-          timestamp: new Date().toISOString(),
-        });
+      let assistantMessage = "";
+      for (const content of response.content) {
+        if (content.type === "text") {
+          console.log("Assistant message:", content.text);
+          if (assistantMessage === "") {
+            assistantMessage = content.text;
+          } else {
+            assistantMessage += `\n${content.text}`;
+          }
+          this.messageHistory.push({
+            text: content.text,
+            sender: "ai",
+            timestamp: new Date().toISOString(),
+          });
+        } else if (content.type === "mcp_tool_use") {
+          console.log("Tool use detected:", content.name);
+        } else if (content.type === "mcp_tool_result") {
+          console.log("Tool result detected:", content.content);
+        } else {
+          console.log("Unknown content type:", content.type);
+        }
+      }
+      if (assistantMessage !== "") {
         return assistantMessage;
       }
       return undefined;

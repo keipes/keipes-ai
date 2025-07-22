@@ -41,6 +41,7 @@ export function ChatView({
               <div
                 key={i}
                 className={msg.role === "user" ? "user-message" : "ai-message"}
+                style={{ whiteSpace: "pre-wrap" }}
               >
                 {msg.text}
               </div>

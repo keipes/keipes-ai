@@ -15,7 +15,7 @@ app.whenReady().then(() => {
     createApplicationMenu();
     setupIpcHandlers();
 
-    let mcpClient = new MCPClient();
+    // let mcpClient = new MCPClient();
 
     logger.info("Application started successfully");
   } catch (error) {
